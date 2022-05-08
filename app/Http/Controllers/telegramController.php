@@ -34,7 +34,7 @@ class telegramController extends Controller
                 ],
                 'one_time_keyboard' => True,
             ];
-            $telegram->sendButtons($chat_id, $text, $button);
+            return $telegram->sendButtons($chat_id, $text, $button);
         }else{
             Log::debug();
         }
@@ -55,7 +55,7 @@ class telegramController extends Controller
                     ],
                     'one_time_keyboard' => true,
                 ];
-            $telegram->sendButtons($chat_id, $text, $button);
+            return $telegram->sendButtons($chat_id, $text, $button);
             
     }
 }
