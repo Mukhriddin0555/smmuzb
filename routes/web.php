@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\telegramController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('sendmessage', [telegramController::class, 'sendmessage'])
+                ->name('sendmessage');
+Route::get('ssmmalumot', [telegramController::class, 'sendmessage'])
+                ->name('sendmessage');
 Route::get('/', function () {
     return view('welcome');
 });
