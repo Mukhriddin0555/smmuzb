@@ -22,18 +22,20 @@ class telegramController extends Controller
         //$chat_id = 34764210;
         //$message = '+998914885559';
         if($text == 'test'){
+            $chat_id = 34764210;
+            $text = 'test';
             $button = [
-                'keyboard' => 
-                [
+                    'keyboard' =>
                     [
                         [
-                            'text' => 'Отправить свой контакт',
-                            'request_contact' => True,
+                            [
+                                'text' => 'Отправить свой контакт',
+                                'request_contact' => true,
+                            ]
                         ]
-                    ]
-                ],
-                'one_time_keyboard' => True,
-            ];
+                    ],
+                    'one_time_keyboard' => true,
+                ];
             return $telegram->sendButtons($chat_id, $text, $button);
         }else{
             Log::debug();
