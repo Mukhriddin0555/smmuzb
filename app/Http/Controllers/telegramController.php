@@ -207,6 +207,7 @@ class telegramController extends Controller
     }
     public function getmessage(Request $request, Telegram $telegram)
     {
+        $contact = false;
         if(isset($request['message']['contact'])){
             $contact = $request['message']['contact'];
         }
