@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /*DB::table('client_statuses')->insert([
+        DB::table('client_statuses')->insert([
             'status' => 'янги',]);
         DB::table('client_statuses')->insert([
             'status' => 'тажрибали',]);
@@ -27,14 +27,14 @@ class DatabaseSeeder extends Seeder
         DB::table('client_statuses')->insert([
             'status' => 'Хайотий',]);
         DB::table('roles')->insert([
-            'role' => 'admin',]);*/
-        /*DB::table('users')->insert([
+            'role' => 'admin',]);
+        DB::table('users')->insert([
             'name' => 'admin',
             'login' => 'comp@biznes.uz',
             'password' => Hash::make('Admin2022'),
             'remember_token' => Str::random(10),
             'role_id' => 1,
             'email_verified_at' => now(),
-        ]);*/
+        ]);
     }
 }
