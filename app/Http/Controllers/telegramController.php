@@ -44,7 +44,7 @@ class telegramController extends Controller
         $user->first_name = $first_name;
         $user->last_name = $last_name;
         $user->telegram_id = $user_id;
-        $user->status_id = 1;
+        $user->client_status_id = 1;
         $user->discount_number = 1;
         $user->save();
         $user->discount_number = $this->intrand() . $user->id;
