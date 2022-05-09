@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    return "Кэш очищенный";
+});
 
 Route::get('/sendmessage', [telegramController::class, 'sendContactVerify'])
                 ->name('sendmessage');
