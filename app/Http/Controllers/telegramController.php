@@ -174,14 +174,12 @@ class telegramController extends Controller
         $identfiedclient = TelegramUser::where('telegram_id', $chat_id)->first();
         $reply_message = Veryfication::where('message_id', $replymessage)->first();
 
-        if($text == $yes && $reply_message){
-            $reply_message->delete();
+        if($text == $yes){
             return $this->menu1($chat_id, $telegram);
             
         }
-        if($text == $no && $reply_message){
+        if($text == $no){
             $identfiedclient->delete();
-            $reply_message->delete();
             return $this->sendRequestContact($chat_id, $telegram);
         }
 
