@@ -185,10 +185,7 @@ class telegramController extends Controller
                     [
                         'text' => $this->button1,
                         'request_contact' => true,
-                    ]
-                    
-                ]
-                [
+                    ],
                     [
                         'text' => $this->button2,
                         'request_contact' => false,
@@ -208,6 +205,7 @@ class telegramController extends Controller
     public function getmessage(Request $request, Telegram $telegram)
     {
         $contact = false;
+        $replymessage = false;
         if(isset($request['message']['contact'])){
             $contact = $request['message']['contact'];
         }
