@@ -209,22 +209,33 @@ class telegramController extends Controller
         $contact = false;
         $replymessage = false;
         $text = false;
-        /*if(isset($request['message']['contact'])){
+        $chat_id = false;
+        $from_id = false;
+        $first_name = 'comp';
+        $last_name = 'biznes';
+        $username = 'mijoz';
+        $replymessage = false;
+        if(isset($request['message']['contact'])){
             $contact = $request['message']['contact'];
-        }*/
+        }
         if(isset($request['message']['text'])){
             $text = $request['message']['text'];
-            Log::debug($text);
         }
-        
-        /*$chat_id = $request['message']['chat']['id'];
-        $text = $request['message']['text'];
-        
-        //$from_id = $request['message']['from']['id'];
-        
-        //$first_name = $request['message']['from']['first_name'];
-        //$last_name = $request['message']['from']['last_name'];
-        //$username = $request['message']['from']['username'];
+        if(isset($request['message']['chat']['id'])){
+            $chat_id = $request['message']['chat']['id'];
+        }
+        if(isset($request['message']['from']['id'])){
+            $from_id = $request['message']['from']['id'];
+        }
+        if(isset($request['message']['from']['first_name'])){
+            $first_name = $request['message']['from']['first_name'];
+        }
+        if(isset($request['message']['from']['last_name'])){
+            $last_name = $request['message']['from']['last_name'];
+        }
+        if(isset($request['message']['from']['username'])){
+            $username = $request['message']['from']['username'];
+        }
         if(isset($request['message']['reply_to_message']['message_id'])){
             $replymessage = $request['message']['reply_to_message']['message_id'];
         }
@@ -248,7 +259,7 @@ class telegramController extends Controller
                 return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
             }
             
-        }*/
+        }
         
         
         //$chat_id = 34764210;
