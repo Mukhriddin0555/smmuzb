@@ -268,7 +268,7 @@ class telegramController extends Controller
         }else{
             
         }*/
-        Log::debug($request['message']);
+        Log::debug($request['message']['text']);
     }
     public function sendmessage(Telegram $telegram)
         {
