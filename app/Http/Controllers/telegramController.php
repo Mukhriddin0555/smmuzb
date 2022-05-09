@@ -208,12 +208,16 @@ class telegramController extends Controller
     {
         $contact = false;
         $replymessage = false;
+        $text = 'not';
         /*if(isset($request['message']['contact'])){
             $contact = $request['message']['contact'];
+        }*/
+        if(isset($request['message']['text'])){
+            $text = $request['message']['text'];
+            Log::debug($text);
         }
         
-        
-        $chat_id = $request['message']['chat']['id'];
+        /*$chat_id = $request['message']['chat']['id'];
         $text = $request['message']['text'];
         
         //$from_id = $request['message']['from']['id'];
@@ -268,7 +272,7 @@ class telegramController extends Controller
         }else{
             
         }*/
-        Log::debug($request('message')['text']);
+        Log::debug($request['message']['text']);
     }
     public function sendmessage(Telegram $telegram)
         {
