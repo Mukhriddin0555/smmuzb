@@ -28,13 +28,13 @@ class DatabaseSeeder extends Seeder
             'status' => 'Хайотий',]);
         DB::table('roles')->insert([
             'role' => 'admin',]);*/
-        DB::table('users')->insert([
+        /*DB::table('users')->insert([
             'name' => 'admin',
             'login' => 'comp@biznes.uz',
             'password' => Hash::make('Admin2022'),
             'remember_token' => Str::random(10),
             'role_id' => 1,
             'email_verified_at' => now(),
-        ]);
+        ]);*/
     }
 }

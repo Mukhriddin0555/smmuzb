@@ -11,36 +11,126 @@ use Illuminate\Support\Facades\Log;
 
 class telegramController extends Controller
 {
-    protected $textagree = 'Хурматли мижоз сиз уз мижозларимиз сафиги кушилишингизни илтимос киламиз, бунинг учун сизга уз контактингизни юборишингиз кифоя, бу билансиз Бизнинг дуконимизда болайотган скидкалар хакида хабарлар олиб туришингиз мумки ва кушимча скидкаларга эга болишнгиз мумкин. Асосийси хар ой утказиладиган ютукли ойинларда катнашиш имкониятига эга боласиз.';
+    protected $textagree = 'Хурматли мижоз сизни уз мижозларимиз сафига кушилишингизни илтимос киламиз, бунинг учун сизга уз контактингизни юборишингиз кифоя, бу билансиз Бизнинг дуконимизда болайотган скидкалар хакида хабарлар олиб туришингиз мумки ва кушимча скидкаларга эга болишнгиз мумкин. Асосийси хар ой утказиладиган ютукли ойинларда катнашиш имкониятига эга боласиз.';
     protected $button1 = 'Юбориш';
     protected $button2 = 'Рози эмасман';
-    protected $menu1 = [];
-    protected $menu2 = [];
-    public function saveContact($contact, $telegram){
+    protected $button3 = 'Ха албатта';
+    protected $button4 = 'Йук бошка';
+    protected $textveryficated = 'Хурматли мижоз сизга хизмат курсатишдан мамнунмиз!';
+    protected $textveryfication = 'Хурматли мижоз хуш келибсиз, 
+            телефон ракамингизни тасдиклашингизни илтимос киламиз. 
+            Ушбу ракам сизга тегишлими?';
+    protected $menubutton1 = 'Скидка учун берилган ракам';
+    protected $menubutton2 = 'Янги скидкалар хакида';
+    protected $menubutton3 = 'Статус';
+    protected $menubutton4 = 'Харидларим';
+    protected $menubutton5 = 'Жамгарма';
+    protected $menubutton6 = 'Манзил';
+    protected $menu2button1 = 'Контакт юбориш';
+    protected $menu2button2 = 'Манзилимиз';
+    protected $menu2button3 = 'Янгиликлар';
+
+    public function intrand(){
+        $discount = random_int(1,9) . random_int(1,9) . random_int(1,9) . random_int(1,9);
+        return $discount;
+    }
+    public function saveContact($contact, $replymessage){
         $number = $contact['phone_number'];
         $first_name = $contact['first_name'];
         $last_name = $contact['last_name'];
         $user_id = $contact['user_id'];
+        $user = new TelegramUser();
+        $user->number = $number;
+        $user->first_name = $first_name;
+        $user->last_name = $last_name;
+        $user->telegram_id = $user_id;
+        $user->status_id = 1;
+        $user->discount_number = 1;
+        $user->save();
+        $user->discount_number = $this->intrand() . $user->id;
+        $user->save();
+        $reply_message = Veryfication::where('message_id', $replymessage)->first();
+        $reply_message->delete();
+        return $user;
 
     }
-    public function menu1(){
-        
+    public function menu1($telegram_id, $telegram){
+        $menu1 = [
+            'keyboard' =>
+                [
+                    [
+                        [
+                            'text' => $this->menubutton1
+                        ]
+                    ]
+                    [
+                        [
+                            'text' => $this->menubutton2
+                        ]
+                    ]
+                    [
+                        [
+                            'text' => $this->menubutton3
+                        ]
+                        
+                    ]
+                    [
+                        [
+                            'text' => $this->menubutton4
+                        ]
+                    ]
+                    [
+                        [
+                            'text' => $this->menubutton5
+                        ]
+                    ]
+                    [
+                        [
+                            'text' => $this->menubutton6
+                        ]
+                    ]
+                ]
+        ];
+        $telegram->sendButtons($telegram_id, $this->textveryficated, $menu1);
     }
-    public function menu2(){
-        
+    public function menu2($telegram_id, $telegram){
+        $menu2 = [
+            'keyboard' =>
+                [
+                    [
+                        [
+                            'text' => $this->menu2button1,
+                            'request_contact' => true
+
+                        ]
+                        
+                    ]
+                    [
+                        [
+                            'text' => $this->menu2button2
+                        ]
+                    ]
+                    [
+                        [
+                            'text' => $this->menu2button3
+                        ]
+                    ]
+                ]
+        ];
+        $telegram->sendButtons($telegram_id, $this->textagree, $menu2);
     }
     public function sendContactVerify($identfiedclient, $telegram){
             $chat_id = $identfiedclient->telegram_id;
-            $text = 'Хурматли мижоз хуш келибсиз, телефон ракамингизни тастиклашингизни илтимос киламиз. Ушбу ракам сизга тегишлими?';
+            $text = $this->textveryfication;
             $button = [
                     'keyboard' =>
                     [
                         [
                             [
-                                'text' => 'Ха албатта',
+                                'text' => $this->button3,
                             ],
                             [
-                                'text' => 'Йук бошка',
+                                'text' => $this->button4,
                             ]
                         ]
                     ],
@@ -64,22 +154,26 @@ class telegramController extends Controller
         if($identfiedclient && $replymessage != 1 && $text != 1){
             return $this->editContactVerify($identfiedclient, $telegram, $replymessage, $text);
         }
+        if(!$identfiedclient){
+            return $this->sendRequestContact($chat_id, $telegram);
+        }
 
     }
     public function editContactVerify($chat_id, $telegram, $replymessage, $text){
         $yes = 'Ха албатта';
         $no = 'Йук бошка';
         $identfiedclient = TelegramUser::where('telegram_id', $chat_id)->first();
-        $reply_message = Veryfication::where('message_id', $chat_id)->first();
+        $reply_message = Veryfication::where('message_id', $replymessage)->first();
 
         if($text == $yes && $reply_message){
-            return $this->menu1($chat_id, $telegram);
             $reply_message->delete();
+            return $this->menu1($chat_id, $telegram);
+            
         }
         if($text == $no && $reply_message){
-            return $this->sendRequestContact($chat_id, $telegram);
             $identfiedclient->delete();
             $reply_message->delete();
+            return $this->sendRequestContact($chat_id, $telegram);
         }
 
     }
@@ -103,7 +197,12 @@ class telegramController extends Controller
             ],
             'one_time_keyboard' => true,
         ];
-    return $telegram->sendButtons($chat_id, $this->textagree, $button);
+            $message = $telegram->sendButtons($chat_id, $this->textagree, $button);
+            $message = json_decode($message);
+            $verify = new Veryfication();
+            $verify->message_id = $message['message']['message_id'];
+            $verify->chat_id = $chat_id;
+            $verify->save();
         
     }
     public function getmessage(Request $request, Telegram $telegram)
@@ -120,12 +219,27 @@ class telegramController extends Controller
         $last_name = $request['message']['from']['last_name'];
         $username = $request['message']['from']['username'];
         $replymessage = $request['message']['reply_to_message']['message_id'];
-        if($text == '/start'){
-            return $this->sendButtonsForContact($chat_id, $telegram);
+
+
+        if($contact){
+            $user = $this->saveContact($contact, $replymessage);
+            if($user){
+                $this->menu1($user->telegram_id, $telegram);
+            }
         }
-        if($text == 'Ха албатта' || $text == 'Йук бошка'){
-            return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
+        if(!$contact){
+            if($text == '/start'){
+                return $this->sendButtonsForContact($chat_id, $telegram);
+            }
+            if($text == $this->button3 || $text == $this->button4){
+                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
+            }
+            if($text == $this->button2){
+                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
+            }
+            
         }
+        
         
         //$chat_id = 34764210;
         //$message = '+998914885559';
