@@ -208,7 +208,7 @@ class telegramController extends Controller
     {
         $contact = false;
         $replymessage = false;
-        $text = 'not';
+        $text = false;
         /*if(isset($request['message']['contact'])){
             $contact = $request['message']['contact'];
         }*/
@@ -272,7 +272,7 @@ class telegramController extends Controller
         }else{
             
         }*/
-        Log::debug($request['message']['text']);
+        //Log::debug($request['message']['text']);
     }
     public function sendmessage(Telegram $telegram)
         {
