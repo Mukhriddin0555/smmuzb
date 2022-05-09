@@ -207,8 +207,10 @@ class telegramController extends Controller
     }
     public function getmessage(Request $request, Telegram $telegram)
     {
+        if(isset($request['message']['contact'])){
+            $contact = $request['message']['contact'];
+        }
         
-        $contact = $request['message']['contact'];
         
         $chat_id = $request['message']['chat']['id'];
         $text = $request['message']['text'];
@@ -218,7 +220,10 @@ class telegramController extends Controller
         $first_name = $request['message']['from']['first_name'];
         $last_name = $request['message']['from']['last_name'];
         $username = $request['message']['from']['username'];
-        $replymessage = $request['message']['reply_to_message']['message_id'];
+        if(isset($request['message']['reply_to_message']['message_id'])){
+            $replymessage = $request['message']['reply_to_message']['message_id'];
+        }
+        
 
 
         if($contact){
