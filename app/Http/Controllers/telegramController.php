@@ -62,33 +62,33 @@ class telegramController extends Controller
                         [
                             'text' => $this->menubutton1
                         ]
-                    ]
+                    ],
                     [
                         [
                             'text' => $this->menubutton2
                         ]
-                    ]
+                    ],
                     [
                         [
                             'text' => $this->menubutton3
                         ]
                         
-                    ]
+                    ],
                     [
                         [
                             'text' => $this->menubutton4
                         ]
-                    ]
+                    ],
                     [
                         [
                             'text' => $this->menubutton5
                         ]
-                    ]
+                    ],
                     [
                         [
                             'text' => $this->menubutton6
                         ]
-                    ]
+                    ],
                 ]
         ];
         $telegram->sendButtons($telegram_id, $this->textveryficated, $menu1);
@@ -103,18 +103,17 @@ class telegramController extends Controller
                             'request_contact' => true
 
                         ]
-                        
-                    ]
+                    ],
                     [
                         [
                             'text' => $this->menu2button2
                         ]
-                    ]
+                    ],
                     [
                         [
                             'text' => $this->menu2button3
                         ]
-                    ]
+                    ],
                 ]
         ];
         $telegram->sendButtons($telegram_id, $this->textagree, $menu2);
@@ -129,10 +128,12 @@ class telegramController extends Controller
                             [
                                 'text' => $this->button3,
                             ],
+                        ],
+                        [
                             [
                                 'text' => $this->button4,
                             ]
-                        ]
+                        ],
                     ],
                     'one_time_keyboard' => true,
                 ];
@@ -186,6 +187,8 @@ class telegramController extends Controller
                         'text' => $this->button1,
                         'request_contact' => true,
                     ],
+                ],
+                [
                     [
                         'text' => $this->button2,
                         'request_contact' => false,
