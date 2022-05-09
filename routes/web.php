@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\telegramController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,10 @@ Route::get('/clear', function () {
     Artisan::call('route:clear');
     return "Кэш очищенный";
 });
-
+Route::get('/contact/updated/{id}', [Controller::class, 'register'])
+                ->name('register');
+Route::post('/contact/update/{id}', [Controller::class, 'registered'])
+                ->name('registered');
 Route::get('/sendmessage', [telegramController::class, 'sendContactVerify'])
                 ->name('sendmessage');
 Route::post('/ssmmalumot', [telegramController::class, 'getmessage'])
