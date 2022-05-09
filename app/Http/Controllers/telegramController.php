@@ -118,8 +118,8 @@ class telegramController extends Controller
         ];
         $telegram->sendButtons($telegram_id, $this->textagree, $menu2);
     }
-    public function sendContactVerify($identfiedclient, $telegram){
-            $chat_id = $identfiedclient->telegram_id;
+    public function sendContactVerify(Telegram $telegram){
+            $chat_id = 34764210;
             $text = $this->textveryfication;
             $button = [
                     'keyboard' =>
@@ -140,7 +140,7 @@ class telegramController extends Controller
             $message = $telegram->sendButtons($chat_id, $text, $button);
             $message = json_decode($message);
             $verify = new Veryfication();
-            $verify->message_id = $message['message']['message_id'];
+            $verify->message_id = $message->result->message_id;
             $verify->chat_id = $chat_id;
             $verify->save();
     }
@@ -200,7 +200,7 @@ class telegramController extends Controller
             $message = $telegram->sendButtons($chat_id, $this->textagree, $button);
             $message = json_decode($message);
             $verify = new Veryfication();
-            $verify->message_id = $message['message']['message_id'];
+            $verify->message_id = $message->result->message_id;;
             $verify->chat_id = $chat_id;
             $verify->save();
         

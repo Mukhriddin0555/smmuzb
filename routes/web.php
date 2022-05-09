@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/sendmessage', [telegramController::class, 'sendmessage'])
+Route::get('/sendmessage', [telegramController::class, 'sendContactVerify'])
                 ->name('sendmessage');
 Route::post('/ssmmalumot', [telegramController::class, 'getmessage'])
                 ->name('sendmessage');
