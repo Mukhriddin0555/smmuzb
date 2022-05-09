@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\TelegramUser;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSaleProductsTable extends Migration
+class CreateNotActivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +13,12 @@ class CreateSaleProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sale_products', function (Blueprint $table) {
+        Schema::create('not_actives', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(TelegramUser::class);
-            $table->integer('price_amount');
-            $table->integer('discount');
+            $table->integer('message_id');
+            $table->integer('telegram_id');
+            $table->string('last_name')->nullable();
+            $table->string('first_name')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateSaleProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sale_products');
+        Schema::dropIfExists('not_actives');
     }
 }

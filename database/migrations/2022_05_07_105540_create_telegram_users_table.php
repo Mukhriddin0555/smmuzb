@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ClientStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,11 +16,12 @@ class CreateTelegramUsersTable extends Migration
     {
         Schema::create('telegram_users', function (Blueprint $table) {
             $table->id();
-            $table->int('telegram_id')->unique();
-            $table->int('number')->unique();
+            $table->integer('telegram_id')->unique();
+            $table->integer('number')->unique();
             $table->string('last_name');
             $table->string('first_name');
-            $table->int('discount_number')->unique();
+            $table->foreignIdFor(ClientStatus::class);
+            $table->integer('discount_number')->unique();
             $table->timestamps();
         });
     }
