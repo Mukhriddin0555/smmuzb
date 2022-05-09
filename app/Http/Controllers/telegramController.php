@@ -158,10 +158,10 @@ class telegramController extends Controller
         $identfiedclient = TelegramUser::where('telegram_id', $chat_id)->first();
 
         if($identfiedclient && $replymessage == 1 && $text == 1){
-            return $this->sendContactVerify($identfiedclient, $telegram);
+            return $this->sendContactVerify($chat_id, $telegram);
         }
         if($identfiedclient && $replymessage != 1 && $text != 1){
-            return $this->editContactVerify($identfiedclient, $telegram, $replymessage, $text);
+            return $this->editContactVerify($chat_id, $telegram, $replymessage, $text);
         }
         if(!$identfiedclient){
             return $this->sendRequestContact($chat_id, $telegram);
