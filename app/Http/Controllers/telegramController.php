@@ -149,7 +149,7 @@ class telegramController extends Controller
             //$verify->message_id = $message->result->message_id;
             //$verify->chat_id = $chat_id;
             //$verify->save();
-            Log::debug($message->result->message_id);
+            Log::debug($message);
 
     }
 
