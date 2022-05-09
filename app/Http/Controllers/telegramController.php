@@ -206,7 +206,7 @@ class telegramController extends Controller
     }
     public function getmessage(Request $request, Telegram $telegram)
     {
-        /*$contact = false;
+        $contact = false;
         $replymessage = false;
         if(isset($request['message']['contact'])){
             $contact = $request['message']['contact'];
@@ -214,13 +214,13 @@ class telegramController extends Controller
         
         
         $chat_id = $request['message']['chat']['id'];
-        $text = $request('message')['text'];
+        $text = $request['message']['text'];
         
-        $from_id = $request('message')['from']['id'];
+        //$from_id = $request['message']['from']['id'];
         
-        $first_name = $request['message']['from']['first_name'];
-        $last_name = $request['message']['from']['last_name'];
-        $username = $request['message']['from']['username'];
+        //$first_name = $request['message']['from']['first_name'];
+        //$last_name = $request['message']['from']['last_name'];
+        //$username = $request['message']['from']['username'];
         if(isset($request['message']['reply_to_message']['message_id'])){
             $replymessage = $request['message']['reply_to_message']['message_id'];
         }
@@ -244,7 +244,7 @@ class telegramController extends Controller
                 return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
             }
             
-        }*/
+        }
         
         
         //$chat_id = 34764210;
@@ -268,7 +268,7 @@ class telegramController extends Controller
         }else{
             
         }*/
-        Log::debug($request['message']['text']);
+        //Log::debug($request['message']['text']);
     }
     public function sendmessage(Telegram $telegram)
         {
