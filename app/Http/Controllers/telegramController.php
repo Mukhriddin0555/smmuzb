@@ -40,7 +40,7 @@ class telegramController extends Controller
         $last_name = $contact['last_name'];
         $user_id = $contact['user_id'];
         $user = new TelegramUser();
-        $user->number = $number;
+        $user->number = strval($number);
         $user->first_name = $first_name;
         $user->last_name = $last_name;
         $user->telegram_id = $user_id;

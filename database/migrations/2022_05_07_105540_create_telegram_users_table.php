@@ -17,7 +17,7 @@ class CreateTelegramUsersTable extends Migration
         Schema::create('telegram_users', function (Blueprint $table) {
             $table->id();
             $table->integer('telegram_id')->unique();
-            $table->integer('number')->unique();
+            $table->string('number')->unique();
             $table->string('last_name');
             $table->string('first_name');
             $table->foreignIdFor(ClientStatus::class);
