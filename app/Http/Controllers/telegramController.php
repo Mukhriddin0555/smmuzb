@@ -39,19 +39,26 @@ class telegramController extends Controller
         $first_name = $contact['first_name'];
         $last_name = $contact['last_name'];
         $user_id = $contact['user_id'];
-        $user = new TelegramUser();
-        $user->number = strval($number);
-        $user->first_name = $first_name;
-        $user->last_name = $last_name;
-        $user->telegram_id = $user_id;
-        $user->client_status_id = 1;
-        $user->discount_number = 1;
-        $user->save();
-        $user->discount_number = $this->intrand() . $user->id;
-        $user->save();
-        $reply_message = Veryfication::where('message_id', $replymessage)->first();
-        $reply_message->delete();
-        return $user;
+        $user = TelegramUser::where('number', strval($number))->first();
+        $count = TelegramUser::where('number', strval($number))->count();
+        if( $count < 1){
+            $user = new TelegramUser();
+            $user->number = strval($number);
+            $user->first_name = $first_name;
+            $user->last_name = $last_name;
+            $user->telegram_id = $user_id;
+            $user->client_status_id = 1;
+            $user->discount_number = 1;
+            $user->save();
+            $user->discount_number = $this->intrand() . $user->id;
+            $user->save();
+            $reply_message = Veryfication::where('message_id', $replymessage)->first();
+            $reply_message->delete();
+            return $user;
+        }else{
+            return $user;
+        }
+        
 
     }
     public function menu1($telegram_id, $telegram){
