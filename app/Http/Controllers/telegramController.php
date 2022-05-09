@@ -208,7 +208,7 @@ class telegramController extends Controller
     {
         $contact = false;
         $replymessage = false;
-        if(isset($request['message']['contact'])){
+        /*if(isset($request['message']['contact'])){
             $contact = $request['message']['contact'];
         }
         
@@ -244,7 +244,7 @@ class telegramController extends Controller
                 return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
             }
             
-        }
+        }*/
         
         
         //$chat_id = 34764210;
@@ -268,7 +268,7 @@ class telegramController extends Controller
         }else{
             
         }*/
-        //Log::debug($request['message']['text']);
+        Log::debug($request('message')['text']);
     }
     public function sendmessage(Telegram $telegram)
         {
