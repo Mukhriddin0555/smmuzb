@@ -193,13 +193,13 @@ class telegramController extends Controller
         
     }
 
-    public function sendmenubutton1($chat_id, $telegram, $text){
+    public function sendmenubutton1($chat_id, $telegram){
         $user = TelegramUser::where('telegram_id', $chat_id)->first();
-        if($user->last_name == null){
-            $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
+        if($user->original_last_name == null){
+            return $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
-        if($user->last_name != null){
-            $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:<br>'. $user->discount_number);
+        if($user->original_last_name != null){
+            return $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:<br>'. $user->discount_number);
         }
     }
 
@@ -259,7 +259,7 @@ class telegramController extends Controller
             }
             if($text == $this->menubutton1){
                 if(TelegramUser::where('telegram_id', $chat_id)->count())
-                return $this->sendmenubutton1($chat_id, $telegram, $replymessage, $text);
+                return $this->sendmenubutton1($chat_id, $telegram, $text);
             }
             
         }
