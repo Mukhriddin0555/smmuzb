@@ -23,6 +23,8 @@ Route::get('/clear', function () {
 });
 Route::get('/contact/updated/{id}', [Controller::class, 'register'])
                 ->name('register');
+Route::get('/contact/sucsess', [Controller::class, 'sucsess'])
+                ->name('sucsess');
 Route::post('/contact/update/{id}', [Controller::class, 'registered'])
                 ->name('registered');
 Route::get('/sendmessage', [telegramController::class, 'sendContactVerify'])

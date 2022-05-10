@@ -20,20 +20,16 @@ class telegramController extends Controller
     protected $textveryfication = 'Хурматли мижоз хуш келибсиз, 
             телефон ракамингизни тасдиклашингизни илтимос киламиз. 
             Ушбу ракам сизга тегишлими?';
-    protected $menubutton1 = 'Скидка учун берилган ракам';
+    protected $menubutton1 = 'Чегирма учун берилган ракам';
     protected $menubutton2 = 'Янги скидкалар хакида';
     protected $menubutton3 = 'Статус';
     protected $menubutton4 = 'Харидларим';
-    protected $menubutton5 = 'Жамгарма';
-    protected $menubutton6 = 'Манзил';
+    protected $menubutton5 = 'Биз билан богланиш';
+    protected $menubutton6 = 'Бизнинг Манзил';
     protected $menu2button1 = 'Контакт юбориш';
     protected $menu2button2 = 'Манзилимиз';
     protected $menu2button3 = 'Янгиликлар';
 
-    public function intrand(){
-        $discount = random_int(1,9) . random_int(1,9) . random_int(1,9) . random_int(1,9);
-        return $discount;
-    }
     public function saveContact($contact, $replymessage){
         $number = $contact['phone_number'];
         $first_name = $contact['first_name'];
@@ -50,7 +46,7 @@ class telegramController extends Controller
             $user->client_status_id = 1;
             $user->discount_number = 1;
             $user->save();
-            $user->discount_number = $this->intrand() . $user->id;
+            $user->discount_number = random_int(1000, 9999) . $user->id;
             $user->save();
             $reply_message = Veryfication::where('message_id', $replymessage)->first();
             $reply_message->delete();
@@ -68,22 +64,6 @@ class telegramController extends Controller
                     [
                         [
                             'text' => $this->menubutton1
-                        ]
-                    ],
-                    [
-                        [
-                            'text' => $this->menubutton2
-                        ]
-                    ],
-                    [
-                        [
-                            'text' => $this->menubutton3
-                        ]
-                        
-                    ],
-                    [
-                        [
-                            'text' => $this->menubutton4
                         ]
                     ],
                     [
@@ -211,6 +191,17 @@ class telegramController extends Controller
             $verify->save();
         
     }
+
+    public function sendmenubutton1($chat_id, $telegram, $text){
+        $user = TelegramUser::where('telegram_id', $chat_id)->first();
+        if($user->last_name == null){
+            $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
+        }
+        if($user->last_name != null){
+            $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:<br>'. $user->discount_number);
+        }
+    }
+
     public function getmessage(Request $request, Telegram $telegram)
     {
         $contact = false;
@@ -264,6 +255,10 @@ class telegramController extends Controller
             }
             if($text == $this->button2){
                 return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
+            }
+            if($text == $this->menubutton1){
+                if(TelegramUser::where('telegram_id', $chat_id)->count())
+                return $this->sendmenubutton1($chat_id, $telegram, $replymessage, $text);
             }
             
         }

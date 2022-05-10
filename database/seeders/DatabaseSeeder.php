@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',]);
         DB::table('users')->insert([
             'name' => 'admin',
-            'login' => 'comp@biznes.uz',
+            'email' => 'comp@biznes.uz',
             'password' => Hash::make('Admin2022'),
             'remember_token' => Str::random(10),
             'role_id' => 1,
