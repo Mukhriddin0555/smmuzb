@@ -21,7 +21,6 @@ class Telegram {
       return  $this->http::post(self::url.$this->bot.'/sendMessage', [
             'chat_id' => $chat_id,
             'text' => $message,
-            'parse_mode' => 'html'
         ]);
     }
     public function sendContact($chat_id, $phone, $name){
