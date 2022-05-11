@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Telegram;
+use App\Models\CallBackQuestion;
+use App\Models\Question;
 use App\Models\TelegramUser;
 use App\Models\Veryfication;
 use Illuminate\Http\Request;
@@ -20,6 +22,7 @@ class telegramController extends Controller
     protected $textveryfication = 'Хурматли мижоз хуш келибсиз, 
             телефон ракамингизни тасдиклашингизни илтимос киламиз. 
             Ушбу ракам сизга тегишлими?';
+    protected $menubuttonreg = 'Чегирма олиш учун Руйхатдан утиш';
     protected $menubutton1 = 'Чегирма учун берилган ракам';
     protected $menubutton2 = 'Янги скидкалар хакида';
     protected $menubutton3 = 'Статус';
@@ -29,6 +32,8 @@ class telegramController extends Controller
     protected $menu2button1 = 'Контакт юбориш';
     protected $menu2button2 = 'Манзилимиз';
     protected $menu2button3 = 'Янгиликлар';
+    protected $menubutton66 = 'Бизнинг Манзил: Андижон ш. Бобуршох кучаси 1-уй';
+    protected $menubutton55 = 'Биз билан богланиш: @smmuzb3737, +998938033737';
 
     public function saveContact($contact, $replymessage){
         $number = $contact['phone_number'];
@@ -59,13 +64,19 @@ class telegramController extends Controller
 
     }
     public function menu1($telegram_id, $telegram){
+        $button = 0;
+        if(TelegramUser::where('telegram_id', $telegram_id)->first()->active == 0){
+            $button = ['text' => $this->menubuttonreg];
+        }else{
+            $button = ['text' => $this->menubutton1];
+        ;}
         $menu1 = [
             'keyboard' =>
                 [
                     [
-                        [
-                            'text' => $this->menubutton1
-                        ]
+                        
+                        $button
+                        
                     ],
                     [
                         [
@@ -94,12 +105,12 @@ class telegramController extends Controller
                     ],
                     [
                         [
-                            'text' => $this->menu2button2
+                            'text' => $this->menu2button5
                         ]
                     ],
                     [
                         [
-                            'text' => $this->menu2button3
+                            'text' => $this->menu2button5
                         ]
                     ],
                 ]
@@ -196,10 +207,11 @@ class telegramController extends Controller
     public function sendmenubutton1($chat_id, $telegram){
         $user = TelegramUser::where('telegram_id', $chat_id)->first();
         if($user->original_last_name == null){
-            return $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
+            $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун руйхатдан утишингиз керак болади');
+            //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
         if($user->original_last_name != null){
-            return $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:<br>'. $user->discount_number);
+            return $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:'. $user->discount_number);
         }
     }
 
@@ -239,8 +251,57 @@ class telegramController extends Controller
             $replymessage = $request['message']['reply_to_message']['message_id'];
         }
         
+        $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count + 1;
+        if($text = $this->menubuttonreg){
+            $user = TelegramUser::where('telegram_id', $chat_id)->first();
+            if ($user->active == 0) {
+                $question = new CallBackQuestion();
+                $question->telegram_user_id = $chat_id;
+                $question->question_id = 1;
+                $question->sava();
+                $message = Question::find(1)->question;
+                $telegram->sendMessageHtml($chat_id, $message);
+            }
+            if($user->active == 1){
+                CallBackQuestion::where('telegram_user_id', $chat_id)->delete();
+                $user->active = 0;
+                $user->original_last_name = null;
+                $user->original_last_name == null;
+                $user->save();
+                $message = Question::find(1)->question;
+                $telegram->sendMessageHtml($chat_id, $message);
 
+            }
 
+        }
+        if($question_chat_id > 1 && $question_chat_id < 5){
+            $user = TelegramUser::where('telegram_id', $chat_id)->first();
+            if($question_chat_id == 2){
+                if($user->original_first_name == null){
+                    $user->original_first_name = $text;
+                    $user->save();
+                    $message = Question::find($question_chat_id)->question;
+                    $telegram->sendMessageHtml($chat_id, $message);
+                }
+            }
+            
+            if($question_chat_id == 3){
+                if($user->original_last_name == null){
+                    $user->original_first_name = $text;
+                    $user->save();
+                    $message = Question::find($question_chat_id)->question;
+                    $telegram->sendMessageHtml($chat_id, $message);
+                }
+            }
+            if($question_chat_id == 4){
+                    $user->number2 = $text;
+                    $user->active = 1;
+                    $user->save();
+                    $message = Question::find($question_chat_id)->question;
+                    $telegram->sendMessageHtml($chat_id, $message);
+                
+            }
+        }
         if($contact){
             $user = $this->saveContact($contact, $replymessage);
             if($user){
@@ -261,6 +322,13 @@ class telegramController extends Controller
                 if(TelegramUser::where('telegram_id', $chat_id)->count())
                 return $this->sendmenubutton1($chat_id, $telegram, $text);
             }
+            if($text == $this->menubutton5){
+                $telegram->sendMessage($chat_id, $this->menubutton55);
+            }
+            if($text == $this->menubutton6){
+                $telegram->sendMessage($chat_id, $this->menubutton66);
+            }
+
             
         }
         

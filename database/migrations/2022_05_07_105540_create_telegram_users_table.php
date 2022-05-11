@@ -23,7 +23,7 @@ class CreateTelegramUsersTable extends Migration
             $table->string('original_last_name')->nullable();
             $table->string('original_first_name')->nullable();
             $table->string('number2')->unique();
-            $table->string('active')->nullable();
+            $table->string('active')->default(0);
             $table->foreignIdFor(ClientStatus::class);
             $table->integer('discount_number')->unique();
             $table->timestamps();

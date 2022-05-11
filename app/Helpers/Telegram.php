@@ -23,6 +23,13 @@ class Telegram {
             'text' => $message,
         ]);
     }
+    public function sendMessageHtml($chat_id, $message){
+        return  $this->http::post(self::url.$this->bot.'/sendMessage', [
+              'chat_id' => $chat_id,
+              'text' => $message,
+              'parse_mode' => 'html'
+          ]);
+      }
     public function sendContact($chat_id, $phone, $name){
         return  $this->http::post(self::url.$this->bot.'/sendContact', [
               'chat_id' => $chat_id,
