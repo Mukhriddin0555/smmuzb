@@ -40,9 +40,8 @@ class telegramController extends Controller
         $first_name = $contact['first_name'];
         $last_name = $contact['last_name'];
         $user_id = $contact['user_id'];
-        $user = TelegramUser::where('number', strval($number))->first();
-        $count = TelegramUser::where('number', strval($number))->count();
-        if( $count < 1){
+        $user = TelegramUser::where('telegram_id', $user_id)->first();
+        if( !$user){
             $user = new TelegramUser();
             $user->number = strval($number);
             $user->number2 = strval($number);
