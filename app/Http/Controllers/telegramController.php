@@ -304,10 +304,10 @@ class telegramController extends Controller
                 $telegram->sendMessageHtml($chat_id, $message);
 
             }
-        $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count() + 1;
+        //$question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count() + 1;
         
         }
-        if($question_chat_id > 1 && $question_chat_id < 5){
+        /*if($question_chat_id > 1 && $question_chat_id < 5){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
             if($question_chat_id == 2){
                 if($user->original_first_name == null){
@@ -334,7 +334,7 @@ class telegramController extends Controller
                     $telegram->sendMessageHtml($chat_id, $message);
                 
             }
-        }
+        }*/
         
         
         
