@@ -281,13 +281,15 @@ class telegramController extends Controller
         $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count() + 1;
         if($text == $this->menubuttonreg){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
-            if ($user->active == 0) {
-                $question = new CallBackQuestion();
-                $question->telegram_user_id = $chat_id;
-                $question->question_id = 1;
-                $question->save();
-                $message = Question::find(1)->question;
-                $telegram->sendMessageHtml($chat_id, $message);
+            if (isset($user->active)) {
+                if ($user->active == 0) {
+                    $question = new CallBackQuestion();
+                    $question->telegram_user_id = $chat_id;
+                    $question->question_id = 1;
+                    $question->save();
+                    $message = Question::find(1)->question;
+                    $telegram->sendMessageHtml($chat_id, $message);
+                }
             }
             if($user->active == 1){
                 CallBackQuestion::where('telegram_user_id', $chat_id)->delete();
