@@ -196,12 +196,12 @@ class telegramController extends Controller
     }
 
     public function sendmenubutton1($chat_id, $telegram){
-        $user = TelegramUser::where('telegram_id', $chat_id)->first()->active;
-        if($user == 0){
-            $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун руйхатдан утишингиз керак болади');
+        $user = TelegramUser::where('telegram_id', $chat_id)->first();
+        if($user->active == 0){
+            return $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун руйхатдан утишингиз керак болади');
             //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
-        if($user != 0){
+        if($user->active != 0){
             return $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:   '. $user->discount_number);
         }
     }
