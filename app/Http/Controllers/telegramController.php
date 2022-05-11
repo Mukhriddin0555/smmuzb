@@ -163,7 +163,7 @@ class telegramController extends Controller
         if($text == $no){
             $identfiedclient->active = 0;
             $identfiedclient->save();
-            return $this->menu2($chat_id, $telegram);
+            return $this->sendRequestContact($chat_id, $telegram);
         }
 
     }
@@ -249,7 +249,7 @@ class telegramController extends Controller
                 return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
             }
             if($text == $this->button2){
-                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
+                return $this->menu2($chat_id, $telegram);
             }
             if($text == $this->menubutton1){
                 if(TelegramUser::where('telegram_id', $chat_id)->count())
