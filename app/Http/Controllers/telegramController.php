@@ -258,8 +258,7 @@ class telegramController extends Controller
                 return $this->menu2($chat_id, $telegram);
             }
             if($text == $this->menubutton1){
-                if(TelegramUser::where('telegram_id', $chat_id)->count())
-                return $this->sendmenubutton1($chat_id, $telegram, $text);
+                return $this->sendmenubutton1($chat_id, $telegram);
             }
             if($text == $this->menubutton5){
                 return $telegram->sendMessage($chat_id, $this->menubutton55);
