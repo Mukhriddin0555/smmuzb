@@ -278,7 +278,6 @@ class telegramController extends Controller
             
         }
         
-        $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count() + 1;
         if($text == $this->menubuttonreg){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
             if (isset($user->active)) {
@@ -301,7 +300,8 @@ class telegramController extends Controller
                 $telegram->sendMessageHtml($chat_id, $message);
 
             }
-
+        $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count() + 1;
+        
         }
         if($question_chat_id > 1 && $question_chat_id < 5){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
@@ -316,7 +316,7 @@ class telegramController extends Controller
             
             if($question_chat_id == 3){
                 if($user->original_last_name == null){
-                    $user->original_first_name = $text;
+                    $user->original_last_name = $text;
                     $user->save();
                     $message = Question::find($question_chat_id)->question;
                     $telegram->sendMessageHtml($chat_id, $message);
