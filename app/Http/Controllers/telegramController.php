@@ -277,35 +277,6 @@ class telegramController extends Controller
 
             
         }
-        
-        if($text == $this->menubuttonreg){
-            $user = TelegramUser::where('telegram_id', $chat_id)->first();
-            if (isset($user->active)) {
-                if ($user->active == 0) {
-                    $question = new CallBackQuestion();
-                    $question->telegram_user_id = $chat_id;
-                    $question->question_id = 1;
-                    $question->save();
-                    $message = Question::find(1)->question;
-                    $telegram->sendMessageHtml($chat_id, $message);
-                }
-            }
-            if($user->active == 1){
-                CallBackQuestion::where('telegram_user_id', $chat_id)->delete();
-                $user->active = 0;
-                $user->original_last_name = null;
-                $user->original_last_name == null;
-                $user->save();
-                $question = new CallBackQuestion();
-                $question->telegram_user_id = $chat_id;
-                $question->question_id = 1;
-                $question->save();
-                $message = Question::find(1)->question;
-                $telegram->sendMessageHtml($chat_id, $message);
-
-            }
-        
-        }
         $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count() + 1;
         
         if($question_chat_id > 1 && $question_chat_id < 5){
@@ -353,6 +324,36 @@ class telegramController extends Controller
                     $telegram->sendMessageHtml($chat_id, $message);
                 
             }
+        
+        if($text == $this->menubuttonreg){
+            $user = TelegramUser::where('telegram_id', $chat_id)->first();
+            if (isset($user->active)) {
+                if ($user->active == 0) {
+                    $question = new CallBackQuestion();
+                    $question->telegram_user_id = $chat_id;
+                    $question->question_id = 1;
+                    $question->save();
+                    $message = Question::find(1)->question;
+                    $telegram->sendMessageHtml($chat_id, $message);
+                }
+            }
+            if($user->active == 1){
+                CallBackQuestion::where('telegram_user_id', $chat_id)->delete();
+                $user->active = 0;
+                $user->original_last_name = null;
+                $user->original_last_name == null;
+                $user->save();
+                $question = new CallBackQuestion();
+                $question->telegram_user_id = $chat_id;
+                $question->question_id = 1;
+                $question->save();
+                $message = Question::find(1)->question;
+                $telegram->sendMessageHtml($chat_id, $message);
+
+            }
+        
+        }
+        
         }
         
         
