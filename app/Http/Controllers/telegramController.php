@@ -134,11 +134,6 @@ class telegramController extends Controller
                     'one_time_keyboard' => true,
                 ];
             $message = $telegram->sendButtons($chat_id, $text, $button);
-            $message = json_decode($message);
-            $verify = new Veryfication();
-            $verify->message_id = $message->result->message_id;
-            $verify->chat_id = $chat_id;
-            $verify->save();
             //Log::debug($message);
 
     }
@@ -270,8 +265,7 @@ class telegramController extends Controller
             if($text == $this->menubuttonreg){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
             if($user->active == 0) {
-                    $question = new CallBackQuestion();
-                    $question->telegram_user_id = $chat_id;
+                    $question = CallBackQuestion::firstOrCreate(['telegram_user_id' => $chat_id],['question_id' => 1]);
                     $question->question_id = 1;
                     $question->save();
                     $message = Question::find(1)->question;
