@@ -102,12 +102,12 @@ class telegramController extends Controller
                     ],
                     [
                         [
-                            'text' => $this->menu2button5
+                            'text' => $this->menu1button5
                         ]
                     ],
                     [
                         [
-                            'text' => $this->menu2button5
+                            'text' => $this->menu1button6
                         ]
                     ],
                 ]
