@@ -163,7 +163,7 @@ class telegramController extends Controller
         if($text == $no){
             $identfiedclient->active = 0;
             $identfiedclient->save();
-            return $this->sendRequestContact($chat_id, $telegram);
+            return $this->menu2($chat_id, $telegram);
         }
 
     }
