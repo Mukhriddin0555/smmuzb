@@ -54,8 +54,6 @@ class telegramController extends Controller
             $user->save();
             $user->discount_number = random_int(1000, 9999) . $user->id;
             $user->save();
-            $reply_message = Veryfication::where('message_id', $replymessage)->first();
-            $reply_message->delete();
             return $user;
         }else{
             return $user;
