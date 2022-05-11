@@ -315,7 +315,7 @@ class telegramController extends Controller
                 }
             }
             
-            if($question_chat_id == 2){
+            if($question_chat_id->question_id == 2){
                 if($user->original_last_name == null){
                     $user->original_last_name = $text;
                     $user->save();
@@ -325,7 +325,7 @@ class telegramController extends Controller
                     return $telegram->sendMessageHtml($chat_id, $message);
                 }
             }
-            if($question_chat_id == 3){
+            if($question_chat_id->question_id == 3){
                     $user->number2 = $text;
                     $user->active = 1;
                     $user->save();
