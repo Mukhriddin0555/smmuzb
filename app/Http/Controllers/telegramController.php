@@ -315,8 +315,7 @@ class telegramController extends Controller
         
         if($text == $this->menubuttonreg){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
-            if (isset($user->active)) {
-                if ($user->active == 0) {
+            if($user->active == 0) {
                     $question = new CallBackQuestion();
                     $question->telegram_user_id = $chat_id;
                     $question->question_id = 1;
@@ -324,7 +323,6 @@ class telegramController extends Controller
                     $message = Question::find(1)->question;
                     return $telegram->sendMessageHtml($chat_id, $message);
                 }
-            }
             if($user->active == 1){
                 $mess = CallBackQuestion::where('telegram_user_id', $chat_id)->first();
                 $mess->question_id = 1;
