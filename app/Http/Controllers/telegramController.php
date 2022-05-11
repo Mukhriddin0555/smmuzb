@@ -159,17 +159,16 @@ class telegramController extends Controller
 
     }
     public function editContactVerify($chat_id, $telegram, $replymessage, $text){
-        $yes = 'Ха албатта';
-        $no = 'Йук бошка';
+        $yes = $this->button3;
+        $no = $this->button4;
         $identfiedclient = TelegramUser::where('telegram_id', $chat_id)->first();
-        $reply_message = Veryfication::where('message_id', $replymessage)->first();
-
         if($text == $yes){
             return $this->menu1($chat_id, $telegram);
             
         }
         if($text == $no){
-            $identfiedclient->delete();
+            $identfiedclient->active(0);
+            $identfiedclient->save();
             return $this->sendRequestContact($chat_id, $telegram);
         }
 
