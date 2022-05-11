@@ -167,7 +167,7 @@ class telegramController extends Controller
             
         }
         if($text == $no){
-            $identfiedclient->active(0);
+            $identfiedclient->active = 0;
             $identfiedclient->save();
             return $this->sendRequestContact($chat_id, $telegram);
         }
@@ -193,12 +193,6 @@ class telegramController extends Controller
             'one_time_keyboard' => true,
         ];
             $message = $telegram->sendButtons($chat_id, $this->textagree, $button);
-            $message = json_decode($message);
-            $verify = new Veryfication();
-            $verify->message_id = $message->result->message_id;
-            $verify->chat_id = $chat_id;
-            $verify->save();
-        
     }
 
     public function sendmenubutton1($chat_id, $telegram){
