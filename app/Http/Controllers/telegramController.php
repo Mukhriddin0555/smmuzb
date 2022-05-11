@@ -251,7 +251,7 @@ class telegramController extends Controller
             $replymessage = $request['message']['reply_to_message']['message_id'];
         }
         
-        $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count + 1;
+        $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count() + 1;
         if($text = $this->menubuttonreg){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
             if ($user->active == 0) {
