@@ -248,6 +248,35 @@ class telegramController extends Controller
         if(isset($request['message']['reply_to_message']['message_id'])){
             $replymessage = $request['message']['reply_to_message']['message_id'];
         }
+        if($contact){
+            $user = $this->saveContact($contact, $replymessage);
+            if($user){
+                $this->menu1($user->telegram_id, $telegram);
+            }
+        }
+        if(!$contact){
+            if($text == '/start'){
+                return $this->sendButtonsForContact($chat_id, $telegram);
+            }
+            if($text == $this->button3 || $text == $this->button4){
+                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
+            }
+            if($text == $this->button2){
+                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
+            }
+            if($text == $this->menubutton1){
+                if(TelegramUser::where('telegram_id', $chat_id)->count())
+                return $this->sendmenubutton1($chat_id, $telegram, $text);
+            }
+            if($text == $this->menubutton5){
+                $telegram->sendMessage($chat_id, $this->menubutton55);
+            }
+            if($text == $this->menubutton6){
+                $telegram->sendMessage($chat_id, $this->menubutton66);
+            }
+
+            
+        }
         
         $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->count() + 1;
         if($text == $this->menubuttonreg){
@@ -300,35 +329,7 @@ class telegramController extends Controller
                 
             }
         }
-        if($contact){
-            $user = $this->saveContact($contact, $replymessage);
-            if($user){
-                $this->menu1($user->telegram_id, $telegram);
-            }
-        }
-        if(!$contact){
-            if($text == '/start'){
-                return $this->sendButtonsForContact($chat_id, $telegram);
-            }
-            if($text == $this->button3 || $text == $this->button4){
-                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
-            }
-            if($text == $this->button2){
-                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text);
-            }
-            if($text == $this->menubutton1){
-                if(TelegramUser::where('telegram_id', $chat_id)->count())
-                return $this->sendmenubutton1($chat_id, $telegram, $text);
-            }
-            if($text == $this->menubutton5){
-                $telegram->sendMessage($chat_id, $this->menubutton55);
-            }
-            if($text == $this->menubutton6){
-                $telegram->sendMessage($chat_id, $this->menubutton66);
-            }
-
-            
-        }
+        
         
         
         //$chat_id = 34764210;
