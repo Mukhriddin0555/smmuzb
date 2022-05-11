@@ -37,9 +37,15 @@ class telegramController extends Controller
 
     public function saveContact($contact, $replymessage){
         $number = $contact['phone_number'];
-        $first_name = $contact['first_name'];
-        $last_name = $contact['last_name'];
+        $first_name = 'Comp';
+        $last_name = 'Biznes';
         $user_id = $contact['user_id'];
+        if(isset($contact['first_name'])){
+            $first_name = $contact['first_name'];
+        }
+        if(isset($contact['last_name'])){
+            $last_name = $contact['last_name'];
+        }
         $user = TelegramUser::where('telegram_id', $user_id)->first();
         if( !$user){
             $user = new TelegramUser();
@@ -190,13 +196,13 @@ class telegramController extends Controller
     }
 
     public function sendmenubutton1($chat_id, $telegram){
-        $user = TelegramUser::where('telegram_id', $chat_id)->first();
-        if($user->original_last_name == null){
+        $user = TelegramUser::where('telegram_id', $chat_id)->first()->active;
+        if($user == 0){
             $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун руйхатдан утишингиз керак болади');
             //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
-        if($user->original_last_name != null){
-            return $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:'. $user->discount_number);
+        if($user != 0){
+            return $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:   '. $user->discount_number);
         }
     }
 
@@ -276,7 +282,7 @@ class telegramController extends Controller
                 $mess->save();
                 $user->active = 0;
                 $user->original_last_name = null;
-                $user->original_first_name == null;
+                $user->original_first_name = null;
                 $user->save();
                 $message = Question::find(1)->question;
                 return $telegram->sendMessageHtml($chat_id, $message);
@@ -316,7 +322,7 @@ class telegramController extends Controller
                     $question_chat_id->save();
                     $message = Question::find($question_chat_id->question_id)->question;
                     $telegram->sendMessageHtml($chat_id, $message);
-                    return $this->menu1($user->telegram_id, $telegram);
+                    return $this->menu1($chat_id, $telegram);
             }
         
         
