@@ -36,5 +36,17 @@ class DatabaseSeeder extends Seeder
             'role_id' => 1,
             'email_verified_at' => now(),
         ]);
+        DB::table('questions')->insert([
+            'question' => '<b>Исмингизни киритинг?</b>',
+        ]);
+        DB::table('questions')->insert([
+            'question' => '<b>Фамилиянгизни киритинг?</b>',
+        ]);
+        DB::table('questions')->insert([
+            'question' => '<b>Сиз билан богланиш учун ракамингизни киритинг?</b>',
+        ]);
+        DB::table('questions')->insert([
+            'question' => '<b>Табриклайми сиз руйхатдан утдингиз!</b>',
+        ]);
     }
 }
