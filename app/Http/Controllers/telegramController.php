@@ -296,7 +296,11 @@ class telegramController extends Controller
                 $user->original_last_name = null;
                 $user->original_last_name == null;
                 $user->save();
+                $question = new CallBackQuestion();
                 $message = Question::find(1)->question;
+                $question->telegram_user_id = $chat_id;
+                $question->question_id = 1;
+                $question->save();
                 $telegram->sendMessageHtml($chat_id, $message);
 
             }
