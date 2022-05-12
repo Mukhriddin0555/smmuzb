@@ -125,7 +125,7 @@ class telegramController extends Controller
         $telegram->sendButtons($telegram_id, $this->textagree, $menu2);
     }
     public function sendContactVerify($chat_id, $telegram){
-            $user = TelegramUser::where('telegram_id', $chat_id);
+            $user = TelegramUser::where('telegram_id', $chat_id)->first();
             $text = '<code>'. $user->original_last_name . '</code>'.
                     '<code>'. $user->original_first_name . '</code>'.
                     '<code>'. $user->number2 . '</code>'
