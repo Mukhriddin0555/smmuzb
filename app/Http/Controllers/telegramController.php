@@ -106,7 +106,8 @@ class telegramController extends Controller
                             'text' => $this->menubutton6
                         ]
                     ],
-                ]
+                ],
+                'resize_keyboard' => true,
         ];
         return $telegram->sendButtons($telegram_id, $this->textveryficated, $menu1);
     }
@@ -131,7 +132,9 @@ class telegramController extends Controller
                             'text' => $this->menubutton6
                         ]
                     ],
-                ]
+                ],
+                'resize_keyboard' => true,
+                
         ];
         return $telegram->sendButtons($telegram_id, $this->textagree, $menu2);
     }
@@ -154,6 +157,7 @@ class telegramController extends Controller
                         ],
                     ],
                     'one_time_keyboard' => true,
+                    'resize_keyboard' => true,
                 ];
             return $telegram->sendButtons($chat_id, $text, $button);
             //Log::debug($message);
@@ -206,6 +210,7 @@ class telegramController extends Controller
                 ],
             ],
             'one_time_keyboard' => true,
+            'resize_keyboard' => true,
         ];
             return $telegram->sendButtons($chat_id, $this->textagree, $button);
     }
@@ -380,6 +385,10 @@ class telegramController extends Controller
                                 'text' => "\u{2705}Юбориш",
                                 'request_contact' => true,
                             ],
+                            [
+                                'text' => "\u{2705}Юбориш",
+                                'request_contact' => true,
+                            ],
                         ],
                         [
                             [
@@ -389,6 +398,7 @@ class telegramController extends Controller
                         ]
                     ],
                     'one_time_keyboard' => true,
+                    'resize_keyboard' => true,
                 ];
             return $telegram->sendButtons($chat_id, $text, $button);
             
