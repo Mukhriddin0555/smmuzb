@@ -6,7 +6,6 @@ use Spatie\Emoji\Emoji;
 use App\Models\Question;
 use App\Helpers\Telegram;
 use App\Models\TelegramUser;
-use App\Models\Veryfication;
 use Illuminate\Http\Request;
 use App\Models\CallBackQuestion;
 
@@ -14,13 +13,13 @@ class telegramController extends Controller
 {
     protected $textagree = "
     Ассалому алейкум!\n
-    Сизни уз мижозларимиз сафига кушилишингизни илтимос киламиз!\n 
-    Бунинг учун бизга уз контактингизни юборишингиз кифоя!\n 
-    Бу билан сиз Бизнинг дўконимизда бўлаётган\n 
-    Чегирмалар ва янгиликлар хақида\n
+\u{1F91D}Сизни уз мижозларимиз сафига кушилишингизни илтимос киламиз!\n
+\u{1F4F1}Бунинг учун бизга уз контактингизни юборишингиз кифоя!\n 
+\u{1F4A5}Бу билан сиз Бизнинг дўконимизда бўлаётган\n 
+\u{231B}Чегирмалар ва янгиликлар хақида
     доим хабардор бўлиб турасиз.\n
-    Асосийси сиз доимий 2 %ли черирмага эга бўласиз\n
-    Ундан хам зўри хар ой ўтказиладиган ютуқли ўйинларда қатнашиш имкониятига эга бўласиз.
+\u{1F44D}Асосийси сиз доимий 2 %ли черирмага эга бўласиз\n
+\u{1F4A5}Ундан хам зўри хар ой ўтказиладиган ютуқли ўйинларда қатнашиш имкониятига эга бўласиз.
     ";
     protected $button1 = "\u{2705}Ха!";
     protected $button2 = "\u{274C}Йок!";
@@ -31,18 +30,18 @@ class telegramController extends Controller
     protected $vt2 = "Ботимизга хуш келибсиз!\n
     Юкорида курсатилган маълумотлар сизга тегишли булса 
     <b>ХА</b> тугмасини босинг!";
-    protected $menubuttonreg = 'Чегирма олиш учун Руйхатдан утиш';
-    protected $menubutton1 = 'Чегирма учун берилган ракам';
+    protected $menubuttonreg = "\u{1F525}Чегирма олиш учун Руйхатдан утиш";
+    protected $menubutton1 = "Чегирма учун берилган ракам";
     protected $menubutton2 = 'Янги скидкалар хакида';
     protected $menubutton3 = 'Статус';
     protected $menubutton4 = 'Харидларим';
-    protected $menubutton5 = 'Биз билан богланиш';
-    protected $menubutton6 = 'Бизнинг Манзил';
+    protected $menubutton5 = "\u{1F4DE}Биз билан богланиш";
+    protected $menubutton6 = "\u{1F3E2}Бизнинг Манзил";	
     protected $menu2button1 = 'Контакт юбориш';
     protected $menu2button2 = 'Манзилимиз';
     protected $menu2button3 = 'Янгиликлар';
-    protected $menubutton66 = "Бизнинг Манзил:\nАндижон ш. Бобуршох кучаси 1-уй";
-    protected $menubutton55 = "Биз билан богланиш:\nАдмин: @smmuzb3737 \nТел: +998938033737";
+    protected $menubutton66 = "Бизнинг Манзил:\n\u{1F4DE} Андижон ш. Бобуршох кучаси 1-уй";
+    protected $menubutton55 = "Биз билан богланиш:\nАдмин: \u{FE0F}@smmuzb3737 \n\u{1F4DE}Тел: +998938033737";
 
     public function saveContact($contact, $replymessage){
         $number = $contact['phone_number'];
@@ -215,7 +214,7 @@ class telegramController extends Controller
             //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
         if($user->active != 0){
-            return $telegram->sendmessage($chat_id, "Сизга берилган чегирма раками:\n" . $user->discount_number);
+            return $telegram->sendmessage($chat_id, "Сизга берилган чегирма раками:\n" . "<pre>" . $user->discount_number . "</pre");
         }
     }
 
@@ -369,7 +368,7 @@ class telegramController extends Controller
     public function sendmessage(Telegram $telegram)
         {
             $chat_id = 34764210;
-            $text = "\u{2705}Юбориш";
+            $text = "\u{1F92D}Юбориш";
             $button = [
                     'keyboard' =>
                     [
