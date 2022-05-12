@@ -41,7 +41,7 @@ class telegramController extends Controller
     protected $menu2button2 = 'Манзилимиз';
     protected $menu2button3 = 'Янгиликлар';
     protected $menubutton66 = "Бизнинг Манзил:\n\u{1F3E2} Андижон ш. Бобуршох кучаси 1-уй";
-    protected $menubutton55 = "Биз билан богланиш:\nАдмин: \u{1F64E}\u{200D}\u{2642}\u{FE0F}@smmuzb3737 \n\u{1F4DE}Тел: +998938033737";
+    protected $menubutton55 = "Биз билан богланиш:\n \u{1F64E}\u{200D}\u{2642}\u{FE0F}Админ: @smmuzb3737\n \u{1F4DE}Тел: +998938033737";
 
     public function saveContact($contact){
         $number = $contact['phone_number'];
@@ -214,7 +214,7 @@ class telegramController extends Controller
             //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
         if($user->active != 0){
-            return $telegram->sendmessage($chat_id, "Сизга берилган чегирма раками:\n" . $user->discount_number);
+            return $telegram->sendmessage($chat_id, "Сизга берилган чегирма раками:\n     " . $user->discount_number);
         }
     }
 
