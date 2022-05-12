@@ -18,7 +18,7 @@ class telegramController extends Controller
 \u{1F4A5}Бу билан сиз Бизнинг дўконимизда бўлаётган\n 
 \u{231B}Чегирмалар ва янгиликлар хақида
     доим хабардор бўлиб турасиз.\n
-\u{1F44D}Асосийси сиз доимий 2 %ли черирмага эга бўласиз\n
+\u{1F525}Асосийси сиз доимий 2 %ли черирмага эга бўласиз\n
 \u{1F4A5}Ундан хам зўри хар ой ўтказиладиган ютуқли ўйинларда қатнашиш имкониятига эга бўласиз.
     ";
     protected $button1 = "\u{2705}Ха!";
@@ -214,7 +214,7 @@ class telegramController extends Controller
             //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
         if($user->active != 0){
-            return $telegram->sendmessage($chat_id, "Сизга берилган чегирма раками:\n" . "<pre>" . $user->discount_number . "</pre");
+            return $telegram->sendMessageHtml($chat_id, "Сизга берилган чегирма раками:\n" . "<pre>" . $user->discount_number . "</pre");
         }
     }
 
