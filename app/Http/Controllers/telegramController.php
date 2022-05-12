@@ -148,11 +148,9 @@ class telegramController extends Controller
                             [
                                 'text' => $this->button3,
                             ],
-                        ],
-                        [
                             [
                                 'text' => $this->button4,
-                            ]
+                            ],
                         ],
                     ],
                     'one_time_keyboard' => true,
@@ -201,13 +199,11 @@ class telegramController extends Controller
                         'text' => $this->button1,
                         'request_contact' => true,
                     ],
-                ],
-                [
                     [
                         'text' => $this->button2,
                         'request_contact' => false,
-                    ]
-                ]
+                    ],
+                ],
             ],
             'one_time_keyboard' => true,
         ];
@@ -383,7 +379,13 @@ class telegramController extends Controller
                             [
                                 'text' => "\u{2705}Юбориш",
                                 'request_contact' => true,
-                            ]
+                            ],
+                        ],
+                        [
+                            [
+                                'text' => "\u{2705}Юбориш",
+                                'request_contact' => true,
+                            ],
                         ]
                     ],
                     'one_time_keyboard' => true,
