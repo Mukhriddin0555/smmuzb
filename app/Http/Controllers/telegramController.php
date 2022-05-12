@@ -214,7 +214,7 @@ class telegramController extends Controller
             //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
         if($user->active != 0){
-            return $telegram->sendMessageHtml($chat_id, "Сизга берилган чегирма раками:\n" . "<pre>" . $user->discount_number . "</pre");
+            return $telegram->sendmessage($chat_id, "Сизга берилган чегирма раками:\n" . $user->discount_number);
         }
     }
 
