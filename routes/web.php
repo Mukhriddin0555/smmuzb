@@ -1,8 +1,9 @@
 <?php
 
+use Spatie\Emoji\Emoji;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\telegramController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\telegramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,16 +22,19 @@ Route::get('/clear', function () {
     Artisan::call('route:clear');
     return "Кэш очищенный";
 });
+Route::get('emoji', function(){
+    return dd(Emoji::all()); 
+});
 Route::get('/contact/updated/{id}', [Controller::class, 'register'])
                 ->name('register');
 Route::get('/contact/sucsess', [Controller::class, 'sucsess'])
                 ->name('sucsess');
 Route::post('/contact/update/{id}', [Controller::class, 'registered'])
                 ->name('registered');
-Route::get('/sendmessage', [telegramController::class, 'sendContactVerify'])
+Route::get('/sendmessage', [telegramController::class, 'sendmessage'])
                 ->name('sendmessage');
 Route::post('/ssmmalumot', [telegramController::class, 'getmessage'])
-                ->name('sendmessage');
+                ->name('getmessage');
 Route::get('/', function () {
     return view('welcome');
 });

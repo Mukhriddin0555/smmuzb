@@ -2,26 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Telegram;
-use App\Models\CallBackQuestion;
+use Spatie\Emoji\Emoji;
 use App\Models\Question;
+use App\Helpers\Telegram;
 use App\Models\TelegramUser;
 use App\Models\Veryfication;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Models\CallBackQuestion;
 
 class telegramController extends Controller
 {
-    protected $textagree = 'Хурматли мижоз сизни уз мижозларимиз сафига кушилишингизни илтимос киламиз, бунинг учун сизга уз контактингизни юборишингиз кифоя, бу билансиз Бизнинг дуконимизда болайотган скидкалар хакида хабарлар олиб туришингиз мумки ва кушимча скидкаларга эга болишнгиз мумкин. Асосийси хар ой утказиладиган ютукли ойинларда катнашиш имкониятига эга боласиз.';
-    protected $button1 = 'Юбориш';
-    protected $button2 = 'Рози эмасман';
-    protected $button3 = 'Ха албатта';
-    protected $button4 = 'Йук бошка';
-    protected $textveryficated = 'Хурматли мижоз сизга хизмат курсатишдан мамнунмиз!';
-    protected $textveryfication = 'Хурматли мижоз хуш келибсиз, 
-            телефон ракамингизни тасдиклашингизни илтимос киламиз. 
-            Ушбу ракам сизга тегишлими?';
+    protected $textagree = '<pre>Ассалому алейкум!</pre> 
+    <pre>Сизни уз мижозларимиз сафига кушилишингизни илтимос киламиз!</pre> 
+    <pre>Бунинг учун сизга уз контактингизни юборишингиз кифоя</pre> 
+    <pre>Бу билан сиз Бизнинг дуконимизда булайотган</pre> 
+    <pre>Скидкалар ва янгиликлар хакида доим хабардор болиб турасиз</pre>
+    <pre>Асосийси черирмаларга эга боласиз</pre>
+    <pre>Ундан хам зури хар ой утказиладиган ютукли ойинларда катнашиш имкониятига эга боласиз.</pre>';
+    protected $button1 = '\u{2705}Юбориш';
+    protected $button2 = '\u{274C}Рози эмасман';
+    protected $button3 = '\u{2705}Ха албатта';
+    protected $button4 = '\u{274C}Йук бошка';
+    protected $textveryficated = 'Cизга хизмат курсатишдан мамнунмиз!';
+    protected $vt1 = "@bebybazarbot"; //veryficationеtext
+    protected $vt2 = "ботимизга хуш келибсиз, курсатилган малумотлар сизга тегишли болса ха тугмасини босинг!";
     protected $menubuttonreg = 'Чегирма олиш учун Руйхатдан утиш';
     protected $menubutton1 = 'Чегирма учун берилган ракам';
     protected $menubutton2 = 'Янги скидкалар хакида';
@@ -121,7 +125,11 @@ class telegramController extends Controller
         $telegram->sendButtons($telegram_id, $this->textagree, $menu2);
     }
     public function sendContactVerify($chat_id, $telegram){
-            $text = $this->textveryfication;
+            $user = TelegramUser::where('telegram_id', $chat_id);
+            $text = '<code>'. $user->original_last_name . '</code>'.
+                    '<code>'. $user->original_first_name . '</code>'.
+                    '<code>'. $user->number2 . '</code>'
+                    . $this->vt1 . $this->vt2;
             $button = [
                     'keyboard' =>
                     [
@@ -356,7 +364,7 @@ class telegramController extends Controller
     public function sendmessage(Telegram $telegram)
         {
             $chat_id = 34764210;
-            $text = 'test';
+            $text = "<pre>1</pre><pre>2</pre><pre>1</pre><pre>2</pre>";
             $button = [
                     'keyboard' =>
                     [
