@@ -55,7 +55,7 @@ class telegramController extends Controller
             $last_name = $contact['last_name'];
         }
         $user = TelegramUser::where('telegram_id', $user_id)->first();
-        if( !$user){
+        if(!$user){
             $user = new TelegramUser();
             $user->number = strval($number);
             $user->number2 = strval($number);
@@ -69,6 +69,13 @@ class telegramController extends Controller
             $user->save();
             return $user;
         }else{
+            $user->number = strval($number);
+            $user->number2 = strval($number);
+            $user->first_name = $first_name;
+            $user->last_name = $last_name;
+            $user->telegram_id = $user_id;
+            $user->client_status_id = 1;
+            $user->save();
             return $user;
         }
         
@@ -101,7 +108,7 @@ class telegramController extends Controller
                     ],
                 ]
         ];
-        $telegram->sendButtons($telegram_id, $this->textveryficated, $menu1);
+        return $telegram->sendButtons($telegram_id, $this->textveryficated, $menu1);
     }
     public function menu2($telegram_id, $telegram){
         $menu2 = [
@@ -126,7 +133,7 @@ class telegramController extends Controller
                     ],
                 ]
         ];
-        $telegram->sendButtons($telegram_id, $this->textagree, $menu2);
+        return $telegram->sendButtons($telegram_id, $this->textagree, $menu2);
     }
     public function sendContactVerify($chat_id, $telegram){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
@@ -150,7 +157,7 @@ class telegramController extends Controller
                     ],
                     'one_time_keyboard' => true,
                 ];
-            $message = $telegram->sendButtons($chat_id, $text, $button);
+            return $telegram->sendButtons($chat_id, $text, $button);
             //Log::debug($message);
 
     }
@@ -204,7 +211,7 @@ class telegramController extends Controller
             ],
             'one_time_keyboard' => true,
         ];
-            $message = $telegram->sendButtons($chat_id, $this->textagree, $button);
+            return $telegram->sendButtons($chat_id, $this->textagree, $button);
     }
 
     public function sendmenubutton1($chat_id, $telegram){
@@ -254,7 +261,7 @@ class telegramController extends Controller
             $replymessage = $request['message']['reply_to_message']['message_id'];
         }
         if($contact){
-            $user = $this->saveContact($contact, $replymessage);
+            $user = $this->saveContact($contact);
             if($user){
                 return $this->menu1($user->telegram_id, $telegram);
             }
