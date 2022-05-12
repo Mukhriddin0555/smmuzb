@@ -19,10 +19,10 @@ class telegramController extends Controller
     <pre>Скидкалар ва янгиликлар хакида доим хабардор болиб турасиз</pre>
     <pre>Асосийси черирмаларга эга боласиз</pre>
     <pre>Ундан хам зури хар ой утказиладиган ютукли ойинларда катнашиш имкониятига эга боласиз.</pre>';
-    protected $button1 = '\u{2705}Юбориш';
-    protected $button2 = '\u{274C}Рози эмасман';
-    protected $button3 = '\u{2705}Ха албатта';
-    protected $button4 = '\u{274C}Йук бошка';
+    protected $button1 = "\u{2705}Юбориш";
+    protected $button2 = "\u{274C}Рози эмасман";
+    protected $button3 = "\u{2705}Ха албатта";
+    protected $button4 = "\u{274C}Йук бошка";
     protected $textveryficated = 'Cизга хизмат курсатишдан мамнунмиз!';
     protected $vt1 = "@bebybazarbot"; //veryficationеtext
     protected $vt2 = "ботимизга хуш келибсиз, курсатилган малумотлар сизга тегишли болса ха тугмасини босинг!";
@@ -364,13 +364,13 @@ class telegramController extends Controller
     public function sendmessage(Telegram $telegram)
         {
             $chat_id = 34764210;
-            $text = "<pre>1</pre><pre>2</pre><pre>1</pre><pre>2</pre>";
+            $text = "\u{2705}Юбориш";
             $button = [
                     'keyboard' =>
                     [
                         [
                             [
-                                'text' => 'Отправить свой контакт',
+                                'text' => "\u{2705}Юбориш",
                                 'request_contact' => true,
                             ]
                         ]
