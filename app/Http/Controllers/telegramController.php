@@ -21,11 +21,11 @@ class telegramController extends Controller
     <pre>Ундан хам зури хар ой утказиладиган ютукли ойинларда катнашиш имкониятига эга боласиз.</pre>';
     protected $button1 = "\u{2705}Юбориш";
     protected $button2 = "\u{274C}Рози эмасман";
-    protected $button3 = "\u{2705}Ха албатта";
-    protected $button4 = "\u{274C}Йук бошка";
+    protected $button3 = "\u{2705}Ха";
+    protected $button4 = "\u{274C}Йук";
     protected $textveryficated = 'Cизга хизмат курсатишдан мамнунмиз!';
     protected $vt1 = "@bebybazarbot"; //veryficationеtext
-    protected $vt2 = "ботимизга хуш келибсиз, курсатилган малумотлар сизга тегишли болса ха тугмасини босинг!";
+    protected $vt2 = "Ботимизга хуш келибсиз!\nЮкорида курсатилган маълумотлар сизга тегишли булса <b>ХА</b> тугмасини босинг!";
     protected $menubuttonreg = 'Чегирма олиш учун Руйхатдан утиш';
     protected $menubutton1 = 'Чегирма учун берилган ракам';
     protected $menubutton2 = 'Янги скидкалар хакида';
@@ -36,8 +36,8 @@ class telegramController extends Controller
     protected $menu2button1 = 'Контакт юбориш';
     protected $menu2button2 = 'Манзилимиз';
     protected $menu2button3 = 'Янгиликлар';
-    protected $menubutton66 = 'Бизнинг Манзил: Андижон ш. Бобуршох кучаси 1-уй';
-    protected $menubutton55 = 'Биз билан богланиш: @smmuzb3737, +998938033737';
+    protected $menubutton66 = "Бизнинг Манзил:\nАндижон ш. Бобуршох кучаси 1-уй";
+    protected $menubutton55 = "Биз билан богланиш: \nАдмин: @smmuzb3737 \nТел: +998938033737";
 
     public function saveContact($contact, $replymessage){
         $number = $contact['phone_number'];
@@ -126,10 +126,10 @@ class telegramController extends Controller
     }
     public function sendContactVerify($chat_id, $telegram){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
-            $text = '<code>'. $user->original_last_name . '</code>'.
-                    '<code>'. $user->original_first_name . '</code>'.
-                    '<code>'. $user->number2 . '</code>'
-                    . $this->vt1 . $this->vt2;
+            $text = $user->original_last_name . "\n". 
+                    $user->original_first_name . "\n".
+                    $user->number2 . "\n".
+                    $this->vt1 . $this->vt2;
             $button = [
                     'keyboard' =>
                     [
@@ -210,7 +210,7 @@ class telegramController extends Controller
             //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
         }
         if($user->active != 0){
-            return $telegram->sendmessage($chat_id, 'Сизга берилган чегирма раками:   '. $user->discount_number);
+            return $telegram->sendmessage($chat_id, "Сизга берилган чегирма раками:/n". $user->discount_number);
         }
     }
 
