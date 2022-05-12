@@ -31,7 +31,7 @@ class telegramController extends Controller
     Юкорида курсатилган маълумотлар сизга тегишли булса 
     <b>ХА</b> тугмасини босинг!";
     protected $menubuttonreg = "\u{1F525}Чегирма олиш учун Руйхатдан утиш";
-    protected $menubutton1 = "Чегирма учун берилган ракам";
+    protected $menubutton1 = "\u{1F3AB}Чегирма учун берилган ракам";
     protected $menubutton2 = 'Янги скидкалар хакида';
     protected $menubutton3 = 'Статус';
     protected $menubutton4 = 'Харидларим';
@@ -40,10 +40,10 @@ class telegramController extends Controller
     protected $menu2button1 = 'Контакт юбориш';
     protected $menu2button2 = 'Манзилимиз';
     protected $menu2button3 = 'Янгиликлар';
-    protected $menubutton66 = "Бизнинг Манзил:\n\u{1F4DE} Андижон ш. Бобуршох кучаси 1-уй";
-    protected $menubutton55 = "Биз билан богланиш:\nАдмин: \u{FE0F}@smmuzb3737 \n\u{1F4DE}Тел: +998938033737";
+    protected $menubutton66 = "Бизнинг Манзил:\n\u{1F3E2} Андижон ш. Бобуршох кучаси 1-уй";
+    protected $menubutton55 = "Биз билан богланиш:\nАдмин: \u{1F64E}\u{200D}\u{2642}\u{FE0F}@smmuzb3737 \n\u{1F4DE}Тел: +998938033737";
 
-    public function saveContact($contact, $replymessage){
+    public function saveContact($contact){
         $number = $contact['phone_number'];
         $first_name = 'Comp';
         $last_name = 'Biznes';
