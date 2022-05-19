@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\SaleProduct;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\TelegramUser
@@ -34,4 +35,8 @@ use Illuminate\Database\Eloquent\Model;
 class TelegramUser extends Model
 {
     use HasFactory;
+
+    public function saleproducts(){
+        return $this->hasMany(SaleProduct::class, 'telegram_user_id', 'id');
+    }
 }
