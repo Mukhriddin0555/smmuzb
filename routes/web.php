@@ -40,6 +40,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
 Route::middleware(['admin','auth'])->group(function(){
     Route::get('/admin', [adminController::class, 'admin'])->name('admin');
     //фойдаланувчиларни кушиш, куриш, узгартириш ва учириш учун

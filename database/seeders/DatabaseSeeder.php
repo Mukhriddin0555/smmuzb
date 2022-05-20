@@ -26,8 +26,6 @@ class DatabaseSeeder extends Seeder
             'status' => 'Замованый',]);
         DB::table('client_statuses')->insert([
             'status' => 'Хайотий',]);
-        DB::table('roles')->insert([
-            'role' => 'admin',]);
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'comp@biznes.uz',
@@ -47,7 +45,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('questions')->insert([
             'question' => '<b>Табриклайми сиз руйхатдан утдингиз!</b>',
-        ]);
+        ]);*/
         DB::table('users')->insert([
             'role_id' => 2,
             'name' => "Baby",
@@ -63,10 +61,7 @@ class DatabaseSeeder extends Seeder
             'location' => "location",
             'number' => "+998934272711",
 
-        ]);*/
-        DB::table('roles')->insert([
-            'id' => 1,
-            'role' => 'admin',]);
+        ]);
         DB::table('roles')->insert([
             'id' => 2,
             'role' => 'customer',]);

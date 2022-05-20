@@ -41,7 +41,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Чикиш') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>

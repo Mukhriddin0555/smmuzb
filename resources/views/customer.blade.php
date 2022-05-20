@@ -17,7 +17,12 @@
         <div class="">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 
-                
+                @if (session('danger'))
+                <div class="flex justify-center">
+                    <div class="w-1/2 font-black bg-red-200 rounded m-5 text-center">{{ session('danger') }}
+                    </div>
+                </div>
+                @endif
                 @if (isset($user))
                 @include('layouts.table')
                 @endif

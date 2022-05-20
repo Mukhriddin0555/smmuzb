@@ -20,7 +20,7 @@ class customerController extends Controller
             //dd(is_bool($tguser->saleproducts));
         }
         
-        return redirect()->route('customer')->with('danger', 'Клиент не найден');
+        return redirect()->route('customer')->with('danger', 'Харидор топилмади');
     }
     public function addsales($id, Request $request){
         $sale = new SaleProduct();
