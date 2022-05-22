@@ -27,7 +27,7 @@ class telegramController extends Controller
     protected $button3 = "\u{2705}Ха";
     protected $button4 = "\u{274C}Йук";
     protected $textveryficated = "\u{1F91D}Cизга хизмат курсатишдан мамнунмиз!";
-    protected $vt2 = "Ботимизга хуш келибсиз!\n
+    protected $vt2 = " Ботимизга хуш келибсиз!\n
     Юкорида курсатилган маълумотлар сизга тегишли булса 
     <b>ХА</b> тугмасини босинг!";
     protected $menubuttonreg = "\u{1F525}Чегирма олиш учун Руйхатдан утиш";
@@ -342,7 +342,7 @@ class telegramController extends Controller
                     $question_chat_id->question_id = 4;
                     $question_chat_id->save();
                     $message = Question::find($question_chat_id->question_id)->question;
-                    $telegram->sendMessageHtml($chat_id, $message);
+                    $telegram->sendMessageHtml($chat_id, $message, $token);
                     return $this->menu1($chat_id, $telegram, $token);
             }
         
