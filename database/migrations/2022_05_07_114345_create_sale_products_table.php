@@ -19,6 +19,7 @@ class CreateSaleProductsTable extends Migration
             $table->foreignIdFor(TelegramUser::class);
             $table->integer('price_amount');
             $table->integer('discount');
+            $table->integer('customer_id');
             $table->timestamps();
         });
     }

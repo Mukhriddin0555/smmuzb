@@ -18,6 +18,7 @@ class CreateBotTokensTable extends Migration
             $table->id();
             $table->foreignIdFor(Customer::class);
             $table->string('token');
+            $table->string('bot_name');
             $table->timestamps();
         });
     }

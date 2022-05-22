@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BotToken;
+use App\Models\ForBot;
 use App\Models\SaleProduct;
 use App\Models\TelegramUser;
 use Auth;
@@ -20,8 +21,10 @@ class customerController extends Controller
         ->first();
         
         if($tguser != null){
-            $tgsum = SaleProduct::where('telegram_user_id', $tguser->id)->sum('price_amount');
-            return view('customer', ['user' => $tguser, 'sum' => $tgsum]);
+            $tgsum = SaleProduct::where('telegram_user_id', $tguser->id)
+            ->where('customer_id', Auth::user()->customer_id )
+            ->sum('price_amount');
+            return view('customer', ['user' => $tguser, 'sum' => $tgsum, 'customer' => Auth::user()->customer_id]);
             //dd(is_bool($tguser->saleproducts));
         }
         //dd($tguser);
@@ -32,7 +35,7 @@ class customerController extends Controller
         $sale->telegram_user_id = $id;
         $sale->price_amount = $request->amount;
         $sale->discount = 2;
-        $sale->user_id = Auth::user()->id;
+        $sale->customer_id = Auth::user()->customer_id;
         $sale->save();
         $tguser = TelegramUser::where('id', $id)
         ->with('saleproducts')
@@ -46,8 +49,11 @@ class customerController extends Controller
         
     }
     public function eloquent(){
-        $bot = TelegramUser::addSelect(['bot' => BotToken::select('token')->whereColumn('id', 'telegram_users.bot_token_id')])->get();
+        $bot = TelegramUser::join('for_bots', 'telegram_users.id', '=', 'for_bots.telegram_user_id')
+        ->join('bot_tokens', 'for_bots.bot_token_id', '=', 'bot_tokens.id')
+        ->where('customer_id', 1)
+        ->get();
         
-        dd(BotToken::all()[0]->token);
+        dd($bot);
     }
 }

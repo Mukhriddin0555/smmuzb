@@ -14,5 +14,6 @@ class ForBot extends Model
         'bot_token_id',
     ];
     public $timestamps = false;
+    protected $primaryKey = 'telegram_user_id';
     
 }

@@ -31,6 +31,9 @@
                 $paid = 0;
             @endphp
             @foreach ($user->saleproducts as $item)
+            @if ($item->customer_id 1= $customer)
+                @continue
+            @endif
             <tr>
                 <td class="p-4 pr-7">
                     {{$loop->iteration}}
@@ -78,16 +81,5 @@
             </h2>
             @endif
     </div>
-    @if (isset($sum))
-    <h2 class="font-semibold p-2 text-left text-xl text-center text-gray-800 leading-tight">
-        Харидор килган савдо суммаси:   {{ $sum }}
-    </h2>
-    <h2 class="font-semibold p-2 text-left text-xl text-center text-gray-800 leading-tight">
-        Чегирма микдори:   {{ $discount }}
-    </h2>
-    <h2 class="font-semibold p-4 text-left text-xl text-center text-gray-800 leading-tight">
-        Жами туланган сумма:   {{ $paid }}
-    </h2>
-    @endif
     
 </div>
