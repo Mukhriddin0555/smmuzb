@@ -31,7 +31,7 @@
                 $paid = 0;
             @endphp
             @foreach ($user->saleproducts as $item)
-            @if ($item->customer_id 1= $customer)
+            @if ($item->customer_id != $customer)
                 @continue
             @endif
             <tr>
