@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ForBot extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'telegram_user_id',
+        'bot_token_id',
+    ];
 }
