@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('questions')->insert([
             'question' => '<b>Табриклайми сиз руйхатдан утдингиз!</b>',
-        ]);*/
+        ]);
         DB::table('users')->insert([
             'role_id' => 2,
             'name' => "Baby",
@@ -64,7 +64,69 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('roles')->insert([
             'id' => 2,
-            'role' => 'customer',]);
+            'role' => 'customer',]);*/
+        DB::table('users')->insert([
+            'role_id' => 2,
+            'name' => "Kassa2",
+            'email' => "Baby2@smm.uz",
+            'password' => Hash::make('Baby2022'),
+            'customer_id' => 1,
 
+        ]);
+        DB::table('users')->insert([
+            'role_id' => 2,
+            'name' => "Kassa3",
+            'email' => "Baby3@smm.uz",
+            'password' => Hash::make('Baby2022'),
+            'customer_id' => 1,
+
+        ]);
+        DB::table('users')->insert([
+            'role_id' => 2,
+            'name' => "Kassa1",
+            'email' => "Billionaire1@smm.uz",
+            'password' => Hash::make('Smm2022'),
+            'customer_id' => 2,
+
+        ]);
+        DB::table('users')->insert([
+            'role_id' => 2,
+            'name' => "Kassa2",
+            'email' => "Billionaire2@smm.uz",
+            'password' => Hash::make('Smm2022'),
+            'customer_id' => 2,
+
+        ]);
+        DB::table('users')->insert([
+            'role_id' => 2,
+            'name' => "Kassa3",
+            'email' => "Billionaire3@smm.uz",
+            'password' => Hash::make('Smm2022'),
+            'customer_id' => 2,
+
+        ]);
+        DB::table('customers')->insert([
+            'id' => 2,
+            'name' => "Billionaire",
+            'adress' => "Андижон ш. Бобуршох кучаси 1-уй",
+            'location' => "location",
+            'number' => "+998944350555",
+
+        ]);
+        DB::table('bot_tokens')->insert([
+            'id' => 1,
+            'customer_id' => 1,
+            'token' => '5326874233:AAE2hm0X7DFuUCUaR2SXgTGst_db8GvcBkY'
+            'bot_name' => '@babybot'
+
+        ]);
+        DB::table('bot_tokens')->insert([
+            'id' => 2,
+            'customer_id' => 2,
+            'token' => '1778357235:AAH8eOgU09zXxlynrBf83a9h3qZDxHUYDbk'
+            'bot_name' => '@billionaire'
+
+        ]);
+        
     }
 }

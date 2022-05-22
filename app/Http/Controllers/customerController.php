@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BotToken;
 use App\Models\SaleProduct;
 use App\Models\TelegramUser;
+use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class customerController extends Controller
 {
@@ -15,11 +18,13 @@ class customerController extends Controller
         $tguser = TelegramUser::where('discount_number', $request->discount)
         ->with('saleproducts')
         ->first();
+        
         if($tguser != null){
-            return view('customer', ['user' => $tguser]);
+            $tgsum = SaleProduct::where('telegram_user_id', $tguser->id)->sum('price_amount');
+            return view('customer', ['user' => $tguser, 'sum' => $tgsum]);
             //dd(is_bool($tguser->saleproducts));
         }
-        
+        //dd($tguser);
         return redirect()->route('customer')->with('danger', 'Харидор топилмади');
     }
     public function addsales($id, Request $request){
@@ -27,17 +32,22 @@ class customerController extends Controller
         $sale->telegram_user_id = $id;
         $sale->price_amount = $request->amount;
         $sale->discount = 2;
+        $sale->user_id = Auth::user()->id;
         $sale->save();
         $tguser = TelegramUser::where('id', $id)
         ->with('saleproducts')
         ->first();
-        //dd($tguser);
-        return back();//view('customer', ['user' => $tguser]);
+        return back();
     }
     public function salessucsess(){
         
     }
     public function salesdelete(){
         
+    }
+    public function eloquent(){
+        $bot = TelegramUser::addSelect(['bot' => BotToken::select('token')->whereColumn('id', 'telegram_users.bot_token_id')])->get();
+        
+        dd(BotToken::all()[0]->token);
     }
 }

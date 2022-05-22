@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\Telegram;
+use App\Models\BotToken;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(Telegram::class, function ($app){
-            return new Telegram(new Http(), config('bots.bot'));
+            return new Telegram(new Http(), $token = BotToken::all());
           });
     }
 

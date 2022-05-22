@@ -26,7 +26,10 @@
             <th class="p-4 pr-7">Сумма скидки</th>
             <th class="p-4 pr-7">Оплачен</th>
             <th class="p-4 pr-7"></th>
-            
+            @php
+                $discount = 0;
+                $paid = 0;
+            @endphp
             @foreach ($user->saleproducts as $item)
             <tr>
                 <td class="p-4 pr-7">
@@ -43,22 +46,48 @@
                 </td>
                 <td class="p-4 pr-7">
                     {{($item->price_amount / 100) * $item->discount}} сум
+                    @php
+                        $discount = $discount + (($item->price_amount / 100) * $item->discount);
+                    @endphp
                 </td>
                 <td>
-                    <div class="p-4 pr-7 bg-sky-500">
+                    <div class="p-4 pr-7 bg-sky-500 rounded">
                         {{$item->price_amount - (($item->price_amount / 100) * $item->discount)}} сум
                     </div>
-                    
+                    @php
+                        $paid = $paid + ($item->price_amount - (($item->price_amount / 100) * $item->discount));
+                    @endphp
                 </td>
             </tr>
             @endforeach
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="p-4 pr-7">{{ $sum }}</td>
+                <td></td>
+                <td class="p-4 pr-7">{{ $discount }}</td>
+                <td class="p-4 pr-7 bg-sky-500 rounded">{{ $paid }}</td>
+            </tr>
             
             
         </table>
+        
         @else
             <h2 class="font-semibold text-xl text-center text-gray-800 leading-tight">
                 Харидор скидка олмаган
             </h2>
             @endif
     </div>
+    @if (isset($sum))
+    <h2 class="font-semibold p-2 text-left text-xl text-center text-gray-800 leading-tight">
+        Харидор килган савдо суммаси:   {{ $sum }}
+    </h2>
+    <h2 class="font-semibold p-2 text-left text-xl text-center text-gray-800 leading-tight">
+        Чегирма микдори:   {{ $discount }}
+    </h2>
+    <h2 class="font-semibold p-4 text-left text-xl text-center text-gray-800 leading-tight">
+        Жами туланган сумма:   {{ $paid }}
+    </h2>
+    @endif
+    
 </div>
