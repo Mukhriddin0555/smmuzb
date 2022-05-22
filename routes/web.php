@@ -31,7 +31,7 @@ Route::post('/contact/update/{id}', [Controller::class, 'registered'])
                 ->name('registered');
 Route::get('/sendmessage', [telegramController::class, 'sendmessage'])
                 ->name('sendmessage');
-Route::post('/ssmmalumot', [telegramController::class, 'getmessage'])
+Route::post('/smmmalumot', [telegramController::class, 'getmessage'])
                 ->name('getmessage');//webhook
 Route::post('/billionaire', [telegramController::class, 'getmessage2'])
                 ->name('getmessage2');//webhook billionaire //1778357235:AAH8eOgU09zXxlynrBf83a9h3qZDxHUYDbk
