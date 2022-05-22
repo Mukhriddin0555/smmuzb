@@ -13,4 +13,6 @@ class ForBot extends Model
         'telegram_user_id',
         'bot_token_id',
     ];
+    public $timestamps = false;
+    
 }
