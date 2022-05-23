@@ -48,12 +48,6 @@ class telegramController extends Controller
         $first_name = 'Comp';
         $last_name = 'Biznes';
         $user_id = $contact['user_id'];
-        if(isset($contact['first_name'])){
-            $first_name = $contact['first_name'];
-        }
-        if(isset($contact['last_name'])){
-            $last_name = $contact['last_name'];
-        }
         $user = TelegramUser::where('telegram_id', $user_id)->first();
         if(!$user){
             $user = new TelegramUser();
@@ -64,10 +58,6 @@ class telegramController extends Controller
             $user->telegram_id = $user_id;
             $user->client_status_id = 1;
             $user->discount_number = 1;
-            if(!$user->save()){
-                $user->first_name = 'Comp';
-                $user->last_name = 'Biznes';
-            }
             $user->save();
             $user->discount_number = random_int(1000, 9999) . $user->id;
             $user->save();
