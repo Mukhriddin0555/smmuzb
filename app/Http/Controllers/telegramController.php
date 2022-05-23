@@ -48,6 +48,12 @@ class telegramController extends Controller
         $first_name = 'Comp';
         $last_name = 'Biznes';
         $user_id = $contact['user_id'];
+        if(isset($contact['first_name'])){
+            $first_name = $contact['first_name'];
+        }
+        if(isset($contact['last_name'])){
+            $last_name = $contact['last_name'];
+        }
         $user = TelegramUser::where('telegram_id', $user_id)->first();
         if(!$user){
             $user = new TelegramUser();
@@ -313,7 +319,7 @@ class telegramController extends Controller
         if($question_chat_id && $question_chat_id->question_id < 4){
             $user = TelegramUser::where('telegram_id', $chat_id)->first();
             if($question_chat_id->question_id == 1){
-                    $user->original_first_name = 'sss';
+                    $user->original_first_name = $text;
                     $user->save();
                     $question_chat_id->question_id = 2;
                     $question_chat_id->save();
@@ -322,7 +328,7 @@ class telegramController extends Controller
             }
             
             if($question_chat_id->question_id == 2){
-                    $user->original_last_name = 'sss';
+                    $user->original_last_name = $text;
                     $user->save();
                     $question_chat_id->question_id = 3;
                     $question_chat_id->save();
@@ -330,7 +336,7 @@ class telegramController extends Controller
                     return $telegram->sendMessageHtml($chat_id, $message, $token);
             }
             if($question_chat_id->question_id == 3){
-                    $user->number2 = 'sss';
+                    $user->number2 = $text;
                     $user->active = 1;
                     $user->save();
                     $question_chat_id->question_id = 4;
