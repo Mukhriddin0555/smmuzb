@@ -68,7 +68,7 @@ class telegramController extends Controller
                 $user->first_name = 'Comp';
                 $user->last_name = 'Biznes';
             }
-            $user->save()
+            $user->save();
             $user->discount_number = random_int(1000, 9999) . $user->id;
             $user->save();
             ForBot::firstOrCreate(['telegram_user_id' => $user->id, 'bot_token_id' => $token]);
