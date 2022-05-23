@@ -49,10 +49,10 @@ class telegramController extends Controller
         $last_name = 'Biznes';
         $user_id = $contact['user_id'];
         if(isset($contact['first_name'])){
-            $first_name = preg_replace ("~(\\\|\*|\?|\[|\?|\]|\(|\\\$|\))~", "",$contact['first_name']);
+            $first_name = $contact['first_name'];
         }
         if(isset($contact['last_name'])){
-            $last_name = preg_replace ("~(\\\|\*|\?|\[|\?|\]|\(|\\\$|\))~", "",$contact['last_name']);
+            $last_name = $contact['last_name'];
         }
         $user = TelegramUser::where('telegram_id', $user_id)->first();
         if(!$user){
@@ -64,7 +64,11 @@ class telegramController extends Controller
             $user->telegram_id = $user_id;
             $user->client_status_id = 1;
             $user->discount_number = 1;
-            $user->save();
+            if(!$user->save()){
+                $user->first_name = 'Comp';
+                $user->last_name = 'Biznes';
+            }
+            $user->save()
             $user->discount_number = random_int(1000, 9999) . $user->id;
             $user->save();
             ForBot::firstOrCreate(['telegram_user_id' => $user->id, 'bot_token_id' => $token]);
