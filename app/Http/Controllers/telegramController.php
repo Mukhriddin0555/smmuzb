@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ForBot;
+use App\Models\BotToken;
 use App\Models\Question;
 use App\Helpers\Telegram;
-use App\Models\BotToken;
 use App\Models\TelegramUser;
 use Illuminate\Http\Request;
 use App\Models\CallBackQuestion;
-use App\Models\ForBot;
+use Illuminate\Support\Facades\Log;
 
 class telegramController extends Controller
 {
@@ -234,7 +235,9 @@ class telegramController extends Controller
 
     public function getmessage(Request $request, Telegram $telegram, $token = 1)
     {
-        $contact = false;
+        Log::debug($request);
+
+        /*$contact = false;
         $replymessage = false;
         $text = false;
         $chat_id = false;
@@ -352,7 +355,7 @@ class telegramController extends Controller
         
         
         
-        }
+        }*/
         
         
         
