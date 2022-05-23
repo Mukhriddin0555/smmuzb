@@ -49,11 +49,8 @@ class customerController extends Controller
         
     }
     public function eloquent(){
-        $bot = TelegramUser::join('for_bots', 'telegram_users.id', '=', 'for_bots.telegram_user_id')
-        ->join('bot_tokens', 'for_bots.bot_token_id', '=', 'bot_tokens.id')
-        ->where('customer_id', 1)
-        ->get();
-        
-        dd($bot);
+        $str = "\\xF0\\x9F\\x90\\xBC\\xF0\\x9Fs";
+        $strpreg = preg_match("/\/", $str);
+        dd($strpreg);
     }
 }
