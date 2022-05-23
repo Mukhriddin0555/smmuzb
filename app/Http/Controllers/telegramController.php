@@ -49,10 +49,14 @@ class telegramController extends Controller
         $last_name = 'Biznes';
         $user_id = $contact['user_id'];
         if(isset($contact['first_name'])){
-            $first_name = $contact['first_name'];
+            if(!preg_match("%\\\%", $str)){
+                $first_name = $contact['first_name'];
+            }
         }
         if(isset($contact['last_name'])){
-            $last_name = $contact['last_name'];
+            if(!preg_match("%\\\%", $str)){
+                $last_name = $contact['last_name'];
+            }
         }
         $user = TelegramUser::where('telegram_id', $user_id)->first();
         if(!$user){

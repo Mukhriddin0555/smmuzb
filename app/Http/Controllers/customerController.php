@@ -49,8 +49,8 @@ class customerController extends Controller
         
     }
     public function eloquent(){
-        $str = "\\xF0\\x9F\\x90\\xBC\\xF0\\x9Fs";
-        $strpreg = preg_match("/\/", $str);
+        $str = "\\xF0x9F\\x90\\xBC";
+        $strpreg = preg_match("%\\\%", $str);
         dd($strpreg);
     }
 }
