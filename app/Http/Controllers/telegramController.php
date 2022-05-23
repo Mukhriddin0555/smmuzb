@@ -235,9 +235,9 @@ class telegramController extends Controller
 
     public function getmessage(Request $request, Telegram $telegram, $token = 1)
     {
-        Log::debug($request);
+        //Log::debug($request);
 
-        /*$contact = false;
+        $contact = false;
         $replymessage = false;
         $text = false;
         $chat_id = false;
@@ -355,7 +355,7 @@ class telegramController extends Controller
         
         
         
-        }*/
+        }
         
         
         
