@@ -368,32 +368,27 @@ class telegramController extends Controller
     }
     public function sendmessage(Telegram $telegram)
         {
-            $chat_id = 34764210;
-            $text = "\u{1F92D}Юбориш";
+            $chat_id = 9194111;
+            $text = "\u{1F92D}Ошна ишладими?";
             $button = [
                     'keyboard' =>
                     [
                         [
                             [
-                                'text' => "\u{2705}Юбориш",
-                                'request_contact' => true,
+                                'text' => "\u{2705}Манзил",
                             ],
                             [
-                                'text' => "\u{2705}Юбориш",
-                                'request_contact' => true,
+                                'text' => "\u{2705}Адрес",
+                            ],
+                            [
+                                'text' => "\u{2705}Адрес",
                             ],
                         ],
-                        [
-                            [
-                                'text' => "\u{2705}Юбориш",
-                                'request_contact' => true,
-                            ],
-                        ]
                     ],
                     'one_time_keyboard' => true,
                     'resize_keyboard' => true,
                 ];
-            $messag = $telegram->sendButtons($chat_id, $text, $button, 2);
+            $messag = $telegram->sendButtons($chat_id, $text, $button, 1);
             $sss = json_decode($messag);
             dd($sss);
             

@@ -9,6 +9,7 @@ use App\Models\SaleProduct;
 use App\Models\TelegramUser;
 use Illuminate\Http\Request;
 use App\Models\CallBackQuestion;
+use App\Models\Products;
 use Illuminate\Support\Facades\DB;
 
 class customerController extends Controller
@@ -50,13 +51,14 @@ class customerController extends Controller
         
     }
     public function eloquent(){
-        $question_chat_id = CallBackQuestion::where('telegram_user_id', 1234)->first();
+        /*$question_chat_id = CallBackQuestion::where('telegram_user_id', 1234)->first();
         if($question_chat_id){
             echo('true');
         }else{
             echo('false');
-        }
-            
+        }*/
+        $product  = Products::create(['product_name' => '🐼', 'product_amount' => 1]);
+        dd($product);
 
         
         //$str1 = strlen($str);
