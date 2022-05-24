@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BotToken;
+use Auth;
 use App\Models\ForBot;
+use App\Models\BotToken;
 use App\Models\SaleProduct;
 use App\Models\TelegramUser;
-use Auth;
 use Illuminate\Http\Request;
+use App\Models\CallBackQuestion;
 use Illuminate\Support\Facades\DB;
 
 class customerController extends Controller
@@ -49,12 +50,17 @@ class customerController extends Controller
         
     }
     public function eloquent(){
-        $str = "🐼";
-        
+        $question_chat_id = CallBackQuestion::where('telegram_user_id', 1234)->first();
+        if($question_chat_id){
+            echo('true');
+        }else{
+            echo('false');
+        }
+            
 
         
-        $str1 = strlen($str);
-        $str2 = gettype($str);
-        dd($str[0]);
+        //$str1 = strlen($str);
+        //$str2 = gettype($str);
+        //dd($str[0]);
     }
 }
