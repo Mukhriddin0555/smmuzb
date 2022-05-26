@@ -36,7 +36,10 @@ class customerController extends Controller
         $sale = new SaleProduct();
         $sale->telegram_user_id = $id;
         $sale->price_amount = $request->amount;
-        $sale->discount = 2;
+        if(Auth::user()->customer_id == 2){
+            $sale->discount = 2;
+        }else{$sale->discount = 3;}
+        $sale->discount = 3;
         $sale->customer_id = Auth::user()->customer_id;
         $sale->save();
         $tguser = TelegramUser::where('id', $id)
