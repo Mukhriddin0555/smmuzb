@@ -7,13 +7,19 @@
             <th class="p-4 pr-7">Номер телефона</th>
             <th class="p-4 pr-7">Номер для скидки</th>
             <th class="p-4 pr-7">Общая сумма</th>
+            @php
+                $number = 0;
+            @endphp
             @foreach ($allusers as $user)
             @if ($user->saleproducts_sum_price_amount == null)
                 @continue
             @endif
             <tr>
                 <td class="p-4 pr-7">
-                    {{$loop->iteration}}
+                    @php
+                        $number += 1;
+                    @endphp
+                    {{$number}}
                 </td>
                 <td class="p-4 pr-7">
                     {{$user->original_first_name}}
