@@ -62,6 +62,7 @@ Route::middleware(['cust','auth'])->group(function(){
     Route::get('/customer', [customerController::class, 'customer'])->name('customer');
     Route::get('/userfind', [customerController::class, 'userfind'])->name('userfind');
     Route::get('/usersall', [customerController::class, 'usersall'])->name('usersall');
+    Route::get('/sailtoday', [customerController::class, 'sailtoday'])->name('sailtoday');
     Route::post('/usersfind/addsales/{id}',[customerController::class, 'addsales'])->name('addsales');    
     Route::get('/salessucsess/{id}',[customerController::class, 'salessucsess'])->name('salessucsess');
     Route::get('/salesdelete/{id}',[customerController::class, 'salesdelete'])->name('salesdelete');

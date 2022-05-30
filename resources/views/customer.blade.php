@@ -26,6 +26,9 @@
                 @if (isset($user))
                 @include('layouts.table')
                 @endif
+                @if (isset($allusers))
+                @include('layouts.allusers')
+                @endif
             </div>
         </div>
         

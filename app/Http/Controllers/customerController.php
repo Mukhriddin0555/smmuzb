@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\ForBot;
 use App\Models\BotToken;
+use App\Models\Products;
 use App\Models\SaleProduct;
 use App\Models\TelegramUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\CallBackQuestion;
-use App\Models\Products;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class customerController extends Controller
 {
@@ -47,10 +49,13 @@ class customerController extends Controller
         ->first();
         return back();
     }
-    public function salessucsess(){
-        
+    public function usersall(){
+        $users = TelegramUser::withSum(['saleproducts' => function (Builder $query) {
+            $query->where('customer_id', '=', Auth::user()->customer_id);
+        }], 'price_amount')->get();
+        return view('customer', ['allusers' => $users]);
     }
-    public function salesdelete(){
+    public function sailtoday(){
         
     }
     public function eloquent(){
@@ -60,8 +65,20 @@ class customerController extends Controller
         }else{
             echo('false');
         }*/
-        $product  = Products::create(['product_name' => '🐼', 'product_amount' => 1]);
-        dd($product);
+        /*$users = TelegramUser::join('for_bots', 'telegram_users.id', '=', 'for_bots.telegram_user_id')
+        ->join('bot_tokens', 'for_bots.bot_token_id', '=', 'bot_tokens.id')
+        ->join('sale_products', 'telegram_users.id', '=', 'sale_products.telegram_user_id')
+        ->where('bot_tokens.customer_id', Auth::user()->customer_id)
+        ->where('sale_products.customer_id', Auth::user()->customer_id)
+        ->select('telegram_users.id','telegram_users.original_last_name as last_name', 'telegram_users.original_first_name as first_name',
+         'telegram_users.number2 as number', 'sale_products.price_amount as amount',)
+        ->groupBy('id')
+        ->get();*/
+        //$users  = Products::create(['product_name' => '🐼', 'product_amount' => 1]);
+        $users = TelegramUser::withSum(['saleproducts' => function (Builder $query) {
+            $query->where('customer_id', '=', 2);
+        }], 'price_amount')->get();
+        dd($users);
 
         
         //$str1 = strlen($str);
