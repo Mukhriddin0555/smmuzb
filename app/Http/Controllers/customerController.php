@@ -52,7 +52,7 @@ class customerController extends Controller
     public function usersall(){
         $users = TelegramUser::withSum(['saleproducts' => function (Builder $query) {
             $query->where('customer_id', '=', Auth::user()->customer_id);
-        }], 'price_amount')->get();
+        }], 'price_amount')->orderBy('saleproducts_sum_price_amount', 'desc')->get();
         return view('customer', ['allusers' => $users]);
     }
     public function sailtoday(){
