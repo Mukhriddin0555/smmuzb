@@ -76,8 +76,8 @@ class customerController extends Controller
         ->get();*/
         //$users  = Products::create(['product_name' => '🐼', 'product_amount' => 1]);
         $users = TelegramUser::withSum(['saleproducts' => function (Builder $query) {
-            $query->where('customer_id', '=', 2);
-        }], 'price_amount')->get();
+            $query->where('customer_id', '=', 1);
+        }], 'price_amount')->orderBy('saleproducts_sum_price_amount', 'desc')->get();
         dd($users);
 
         
