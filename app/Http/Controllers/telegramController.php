@@ -368,7 +368,7 @@ class telegramController extends Controller
     }
     public function sendmessage(Telegram $telegram)
         {
-            $chat_id = 9194111;
+            $chat_id = 34764210;
             $text = "\u{1F92D}Ошна ишладими?";
             $button = [
                     'keyboard' =>

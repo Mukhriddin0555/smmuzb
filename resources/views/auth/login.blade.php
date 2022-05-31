@@ -23,13 +23,14 @@
             </div>
 
             <!-- Password -->
-            <div class="mt-4">
+            <div class="mt-4 relative">
                 <x-label for="password" :value="__('Password')" />
-
+                <img id="seepassword" src="{{asset('storage/view.png')}}" alt="" class="absolute right-0" onclick="changeText()">
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"
                                 name="password"
                                 required autocomplete="current-password" />
+                
             </div>
 
             <!-- Remember Me -->
@@ -37,6 +38,20 @@
                 <label for="remember_me" class="inline-flex items-center">
                     <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Хотирага саклаш') }}</span>
+                    <script>
+                        function changeText() { 
+                            let mytype = document.getElementById("password")
+                            let imgpassword = document.getElementById("seepassword")
+                            let type = mytype.type
+                            if(type == 'password'){
+                                mytype.type = 'text';
+                                imgpassword.src = "{{asset('storage/noview.png')}}"
+                            }else{
+                                mytype.type = 'password';
+                                imgpassword.src = "{{asset('storage/view.png')}}"
+                            }
+                        }
+                        </script>
                 </label>
             </div>
 
