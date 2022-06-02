@@ -116,14 +116,14 @@ class DatabaseSeeder extends Seeder
         DB::table('bot_tokens')->insert([
             'id' => 1,
             'customer_id' => 1,
-            'token' => '5583068857:AAHC_pRMY7WIjRvG5E2Jic39v7YcoBbwVzM',
+            'token' => 'чегирмабот',
             'bot_name' => '@chegirmabot'
 
         ]);
         DB::table('bot_tokens')->insert([
             'id' => 2,
             'customer_id' => 2,
-            'token' => '5174061516:AAFztpspuab7afUs9kKTVmnzfgDcOgljot0',
+            'token' => 'billionairebot',
             'bot_name' => '@billionaireandijonbot'
 
         ]);
