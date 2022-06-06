@@ -389,12 +389,20 @@ class telegramController extends Controller
                     'resize_keyboard' => true,
                 ];
             $messag = $telegram->sendButtons($chat_id, $text, $button, 1);
-            $sss = json_decode($messag);
+            $sss = json_decode($messag, JSON_UNESCAPED_UNICODE, JSON_PRETTY_PRINT,);
+            $telegram->sendMessageHtml($chat_id, $messag, 1);
             dd($sss);
             
     }
     public function getmessage2(Request $request, Telegram $telegram, $token = 2){
-        return $this->getmessage($request, $telegram, $token = 2);
+        return $this->getmessage($request, $telegram, $token);
+    }
+    public function gettestmessage3(Request $request, Telegram $telegram, $token = 3){
+        $chat = 34764210;
+        $sss = json_decode($request);
+        $text1 = $telegram->sendMessageHtml($chat, $request, $token);
+        $text2 = $telegram->sendMessageHtml($chat, $sss, $token);
+        $text3 = $telegram->sendMessageHtml($chat, $text1, $token);
     }
 
     

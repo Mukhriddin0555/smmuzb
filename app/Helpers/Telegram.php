@@ -14,7 +14,7 @@ class Telegram {
     public function __construct(Http $http, $token)
     {
         $this->http = $http;
-        $this->bot = [ 1 => $token[0]->token, 2 => $token[1]->token];
+        $this->bot = [ 1 => $token[0]->token, 2 => $token[1]->token, 3 => $token[2]->token];
     }
 
     public function sendMessage($chat_id, $message, $token = 1){

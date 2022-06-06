@@ -33,8 +33,10 @@ Route::get('/sendmessage', [telegramController::class, 'sendmessage'])
                 ->name('sendmessage');
 Route::post('/smmmalumot', [telegramController::class, 'getmessage'])
                 ->name('getmessage');//webhook
+Route::post('/gettestmessage3', [telegramController::class, 'gettestmessage3'])
+                ->name('gettestmessage3');//webhook
 Route::post('/billionaire', [telegramController::class, 'getmessage2'])
-                ->name('getmessage2');//webhook billionaire //1778357235:AAH8eOgU09zXxlynrBf83a9h3qZDxHUYDbk
+                ->name('getmessage2');//webhook billionaire
 Route::get('/', function () {
     return view('welcome');
 });
