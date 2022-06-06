@@ -400,9 +400,9 @@ class telegramController extends Controller
     public function gettestmessage3(Request $request, Telegram $telegram, $token = 3){
         Log::debug($request);
         $chat_id = 34764210;
-        $messag = $telegram->sendMessageHtml($chat_id, $request->all(), 3);
+        $messag = $telegram->sendMessageHtml($chat_id, $request->all(), $token);
         $sss = json_decode($messag, JSON_PRETTY_PRINT);
-        return $telegram->sendMessageHtml($chat_id, $sss, 3);
+        return $telegram->sendMessageHtml($chat_id, $sss, $token);
 
 
     }
