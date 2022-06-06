@@ -388,9 +388,9 @@ class telegramController extends Controller
                     'one_time_keyboard' => true,
                     'resize_keyboard' => true,
                 ];
-            $messag = $telegram->sendButtons($chat_id, $text, $button, 1);
+            $messag = $telegram->sendMessageHtml($chat_id, $text, 3);
             $sss = json_decode($messag, JSON_UNESCAPED_UNICODE, JSON_PRETTY_PRINT,);
-            $telegram->sendMessageHtml($chat_id, $messag, 1);
+            $telegram->sendMessageHtml($chat_id, $messag, 3);
             dd($sss);
             
     }
@@ -400,9 +400,10 @@ class telegramController extends Controller
     public function gettestmessage3(Request $request, Telegram $telegram, $token = 3){
         $chat = 34764210;
         $sss = json_decode($request);
+        $ss1 = json_encode($request);
         $text1 = $telegram->sendMessageHtml($chat, $request, $token);
         $text2 = $telegram->sendMessageHtml($chat, $sss, $token);
-        $text3 = $telegram->sendMessageHtml($chat, $text1, $token);
+        $text3 = $telegram->sendMessageHtml($chat, $ss1, $token);
     }
 
     
