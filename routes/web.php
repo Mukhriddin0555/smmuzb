@@ -45,6 +45,8 @@ Route::get('/eloquent', [customerController::class, 'eloquent'])
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+Route::post('/usersendcontact', [telegramController::class, 'usersendcontact'])
+                ->name('usersendcontact');
 
 Route::middleware(['admin','auth'])->group(function(){
     Route::get('/admin', [adminController::class, 'admin'])->name('admin');

@@ -1,40 +1,491 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-t{border-top-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.dark\:text-gray-500{--tw-text-opacity:1;color:#6b7280;color:rgba(107,114,128,var(--tw-text-opacity))}}
-        </style>
-
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        body {
+            width: 100%;
+            height: 370vh;
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            transition: 1s;
+        }
+        .menu {
+            width: 100%;
+            height: 10vh;
+            background: linear-gradient(rgb(0,0,0,0.3), rgb(0,0,0,0.5));
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .main-menu {
+            position: relative;
+            width: 150px;
+            height: 40px;
+            background: linear-gradient(rgb(0,0,0,0.2),rgb(0,0,0,0.3));
+            border-radius: 5px;
+            margin: 20px;
+            color: white;
+            font-family: sans-serif;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            cursor: pointer;
+            transition: 0.7s all;
+        }
+        .advertisement {
+            width: 100%;
+            height: 45vh;
+            display: flex;
+            background-image: url( {{ asset('storage/images/modern-geometrical-background-with-white-triangles.jpg')}} );
+            justify-content: center;
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .pictures {
+            width: 100%;
+            height: 140vh;
+            background-image: url({{ asset('storage/images/picture-background.png')}});
+            background-position: center;
+            background-size: cover;
+        }
+        .numbers {
+            width: 100%;
+            height: 20vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .about-office {
+            width: 100%;
+            height: 120vh;
+            display: flex;
+            background-color: rgb(44, 44, 44);
+            flex-direction: column;
+        }
+        .email {
+            width: 100%;
+            height: 45vh;
+            background-color: rgb(31, 30, 30);
+            display: flex;
+        }
+        h2 {
+            font-family: sans-serif;
+            letter-spacing: 0.6px;
+            margin-left: 150px;
+            color: rgb(165, 165, 165);
+        }
+        .icons {
+            width: 45%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .picture-line {
+            width: 100%;
+            height: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .image {
+            width: 20%;
+            height: 85%;
+        }
+        .picture {
+            width: 100%;
+            height: 85%;
+            background-image: url({{ asset('storage/images/img-13.jpg')}});
+            background-position: center;
+            background-size: cover;
+        }
+        .views {
+            width: 100%;
+            height: 15%;
+            display: flex;
+        }
+        .day {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .view {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        a {
+            font-family: sans-serif;
+            color: rgb(177, 177, 177);
+            font-size: 17px;
+        }
+        .num-btn {
+            width: 180px;
+            height: 50px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .little-num {
+            width: 50px;
+            height: 50px;
+            border-radius: 20%;
+            border: none;
+            margin: 20px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .nums {
+            width: 52%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .top-logo {
+            width: 100%;
+            height: 32%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .text {
+            width: 100%;
+            height: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .bottom-contact {
+            width: 100%;
+            height: 53%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .office-logo {
+            width: 180px;
+            height: 180px;
+            background-image: url({{ asset('storage/images/zuhro.jpg')}});
+            background-position: center;
+            background-size: cover;
+        }
+        h1 {
+            color: white;
+            font-family: sans-serif;
+            font-size: 36px;
+            letter-spacing: 1px;
+        }
+        #ul {
+            color: white;
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+        li {
+            line-height: 30px;
+        }
+        .reach {
+            font-size: 32px;
+            font-weight: 550;
+            color: white;
+        }
+        .email-input {
+            width: 45%;
+            height: 45px;
+            border-radius: 8px;
+            border: none;
+            cursor: text;
+            outline: none;
+            padding: 0 0.8vw;
+            color: rgb(57, 57, 57);
+            letter-spacing: 0.8px;
+        }
+        .email-massage {
+            width: 45%;
+            height: 120px;
+            border-radius: 8px;
+            border: none;
+            cursor: text;
+            outline: none;
+            padding: 0 0.8vw;
+            color: rgb(57, 57, 57);
+            letter-spacing: 0.8px;
+        }
+        #send {
+            width: 40%;
+            height: 45px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .last-frame {
+            width: 25%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            margin-left: 100px;
+        }
+        .navigation {
+            width: 15%;
+            height: 90%;
+        }
+        .contacts {
+            width: 15%;
+            height: 90%;
+        }
+        h6 {
+            font-family: sans-serif;
+            font-size: 22px;
+            color: white;
+            margin-top: 60px;
+        }
+        p {
+            color: white;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+        a {
+            text-decoration: none;
+        }
+        .menu-search {
+            width: 180px;
+            height: 40px;
+            border-radius: 5px;
+            outline: none;
+            margin-left: 100px;
+            border: 1px solid black;
+            padding: 0 0.5vw;
+        }
+        .menu-button {
+            width: 30px;
+            height: 30px;
+            background-image: url({{ asset('storage/images/Untitled-1.png')}});
+            background-position: center;
+            background-size: cover;
+            margin-left: 5px;
+        }
+        .s-menu {
+            margin-left: 285px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
             @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ route('admin') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Асосий панель</a>
+                        <a href="{{ route('admin') }}"><div class="main-menu s-menu">Асосий</div></a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Кириш</a>
-
-                        
+                        <a href="{{ route('login') }}"><div class="main-menu s-menu">Кириш</div></a>
                     @endauth
-                </div>
             @endif
-
-            
+            <a href="#shop"><div class="main-menu f-menu">Shop</div></a>
+            <a href="#tmenu" id="first_a"><div class="main-menu t-menu">About Office </div></a>
+            <a href="#contact"><div class="main-menu fourth-menu">Contact</div></a>
+            <input type="text" placeholder="search" class="menu-search">
+            <div class="menu-button"></div>
         </div>
-    </body>
+        <div class="advertisement" id="advertisement"></div>
+        <div class="pictures" id="shop">
+            <div class="picture-line">
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="picture-line">
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="picture-line">
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="picture-line">
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+                <div class="image">
+                    <div class="picture"></div>
+                    <div class="views">
+                        <div class="day"><a>9 iyun 2022</a></div>
+                        <div class="view"><a>0 views</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="numbers">
+            <button class="before num-btn"><h3>before</h3></button>
+            <div class="nums">
+                <button class="little-num one">1</button>
+                <button class="little-num two">2</button>
+                <button class="little-num three">3</button>
+            </div>
+            <button class="after num-btn"><h3>after</h3></button>
+        </div>
+        <div class="about-office" id="tmenu">
+            <div class="top-logo">
+                <div class="office-logo"></div>
+                <h1>Office Contact</h1>
+            </div>
+            <div class="text">
+                <ul id="ul">
+                    <li>Have questions about Office?</li>
+                    <li>Need a custom version of Office with specific features, designs, or integrations?</li>
+                    <li>Have an idea for an immersive, multi-user experience that lives on the web?</li>
+                </ul>
+            </div>
+            
+            <form action="{{route('usersendcontact')}}" method="POST" class="bottom-contact">
+                @csrf
+                <a class="reach">Reach Out</a>
+                <input type="text" name="name" class="email-input" placeholder="Your name">
+                <input type="text" name="number" class="email-input" placeholder="Your number">
+                <input type="text" name="email" class="email-input" placeholder="Email address">
+                <textarea type="text" name="message" class="email-massage" placeholder="Message"></textarea>
+                <button id="send" type="submit">Send Message</button>
+            </form>
+        
+        </div>
+        <div class="email" id="contact">
+            <div class="last-frame">
+                <h6>ABOUT FRAME</h6><br>
+                <p>Frame is a beta product from Virbela. Frame makes <br> it easy to communicate and collaborate in 3D <br> environments, right from the web browser.</p><br>
+                <p>Here is our Privacy Policy and Terms of Service.</p>
+            </div>
+            <div class="navigation">
+                <h6>NAVIGATION</h6><br>
+                <p>Frame</p><br>
+                <p>Learning Center</p><br>
+                <p>Blog</p><br>
+                <p>Contact</p>
+            </div>
+            <div class="contacts">
+                <h6>CONTACTS</h6><br>
+                <p>hello@framevr.io</p><br>
+                <p>@frame_vr</p><br>
+                <p>Frame on Facebook</p>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
