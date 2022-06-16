@@ -407,7 +407,7 @@ class telegramController extends Controller
 
     }
     public function usersendcontact(Request $req, Telegram $telegram){
-        $chat_id = 1859848777;
+        $chat_id = 5384353797;
         $text = "SMMUZB.UZ Сайтидан навбатдаги мурожаат:
         Мурожаатчи: $req->name
         Тел. раками: $req->number
