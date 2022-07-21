@@ -69,7 +69,7 @@ class telegramController extends Controller
                 ],
                 'resize_keyboard' => true,
         ];
-        return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textveryficated, $menu1);
+        return $telegram->sendButtons($tguser->chat_id, $this->textveryficated, $menu1);
     }
     public function menu2($tguser, $telegram){
         $menu2 = [
@@ -96,7 +96,7 @@ class telegramController extends Controller
                 'resize_keyboard' => true,
                 
         ];
-        return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textagree, $menu2);
+        return $telegram->sendButtons($tguser->chat_id, $this->textagree, $menu2);
     }
     public function sendContactVerify($tguser, $telegram){
             $text = $tguser->userfirst->original_last_name . "\n". 
@@ -118,7 +118,7 @@ class telegramController extends Controller
                     'one_time_keyboard' => true,
                     'resize_keyboard' => true,
                 ];
-            return $telegram->sendButtons($tguser->userfirst->chat_id, $text, $button);
+            return $telegram->sendButtons($tguser->chat_id, $text, $button);
             //Log::debug($message);
 
     }
@@ -155,11 +155,11 @@ class telegramController extends Controller
             'one_time_keyboard' => true,
             'resize_keyboard' => true,
         ];
-        return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textagree, $button);
+        return $telegram->sendButtons($tguser->chat_id, $this->textagree, $button);
     }
 
     public function sendmenubutton1($tguser, $telegram){
-        $a = $tguser->userfirst->chat_id;
+        $a = $tguser->chat_id;
         $b = "Сизга берилган чегирма раками:\n     " . $tguser->userfirst->discount_number;
         return $tguser->userfirst->active ? $telegram->sendmessage($a, $b) : $telegram->sendmessage($a, $this->notactive);
     }
