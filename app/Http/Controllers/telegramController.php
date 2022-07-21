@@ -240,6 +240,7 @@ class telegramController extends Controller
                     $question_chat_id->save();
                     $message = Question::find($question_chat_id->question_id)->question;
                     $telegram->sendMessageHtml($tguser->chat_id, $message);
+                    $tguser->userfirst->active = 1;
                     return $this->menu1($tguser, $telegram);
                 }
             }
