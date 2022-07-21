@@ -6,32 +6,32 @@ use App\Models\TelegramUser;
 
 class TgUser {
 
-    protected $userfirst;
+    public $userfirst;
 
-    protected $contact;
-    protected $phone_number;
+    public $contact;
+    public $phone_number;
     
-    protected $message_id;
-    protected $text;
-    protected $chat_id;
+    public $message_id;
+    public $text;
+    public $chat_id;
 
-    protected $user_id;
-    protected $first_name;
-    protected $last_name;
-    protected $user_name;
-    protected $language_code;
+    public $user_id;
+    public $first_name;
+    public $last_name;
+    public $user_name;
+    public $language_code;
 
-    protected $chattype;
-    protected $chattitle;
+    public $chattype;
+    public $chattitle;
 
 
 
-    protected $chatrole;  //boolean all_members_are_administrators
+    public $chatrole;  //boolean all_members_are_administrators
 
-    protected $sendmessageid; //result send message /id
-    protected $resultok;  //boolean
+    public $sendmessageid; //result send message /id
+    public $resultok;  //boolean
     
-    protected $replymessage;
+    public $replymessage;
 
     public function __construct($request)
     {
