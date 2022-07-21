@@ -129,7 +129,7 @@ class telegramController extends Controller
     }
     public function editContactVerify($tguser, $telegram){
         if($tguser->text == $this->button3){
-            return $this->menu1($tguser->chat_id, $telegram);
+            return $this->menu1($tguser, $telegram);
         }else{
             $user = TelegramUser::find($tguser->userfirst->id);
             $user->active = 0;
