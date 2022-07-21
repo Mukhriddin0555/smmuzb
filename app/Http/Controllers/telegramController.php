@@ -47,7 +47,7 @@ class telegramController extends Controller
     protected $notactive = "Чегирма учун ракамни колга киритиш учун руйхатдан утишингиз керак болади";
 
     public function menu1($tguser, $telegram){
-        $button = $tguser->userfirst->active ? $this->menubuttonreg : $this->menubutton1;
+        $button = $tguser->userfirst->active ? $this->menubutton1 : $this->menubuttonreg;
         $menu1 = [
             'keyboard' =>
                 [
