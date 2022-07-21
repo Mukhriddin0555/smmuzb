@@ -46,7 +46,7 @@ class telegramController extends Controller
     protected $menubutton55 = "Биз билан богланиш:\n \u{1F64E}\u{200D}\u{2642}\u{FE0F}Админ: @smmuzb3737\n \u{1F4DE}Тел: +998938033737";
     protected $notactive = "Чегирма учун ракамни колга киритиш учун руйхатдан утишингиз керак болади";
 
-    public function menu1($tguser, Telegram $telegram){
+    public function menu1($tguser, $telegram){
         $button = $tguser->userfirst->active ? $this->menubuttonreg : $this->menubutton1;
         $menu1 = [
             'keyboard' =>
@@ -71,7 +71,7 @@ class telegramController extends Controller
         ];
         return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textveryficated, $menu1);
     }
-    public function menu2($tguser, Telegram $telegram){
+    public function menu2($tguser, $telegram){
         $menu2 = [
             'keyboard' =>
                 [
@@ -98,7 +98,7 @@ class telegramController extends Controller
         ];
         return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textagree, $menu2);
     }
-    public function sendContactVerify($tguser, Telegram $telegram){
+    public function sendContactVerify($tguser, $telegram){
             $text = $tguser->userfirst->original_last_name . "\n". 
                     $tguser->userfirst->original_first_name . "\n".
                     $tguser->userfirst->number2 . "\n".
@@ -127,7 +127,7 @@ class telegramController extends Controller
     public function sendButtonsForContact($tguser, $telegram){
         return $tguser->userfirst->active ? $this->sendContactVerify($tguser, $telegram) : $this->sendRequestContact($tguser, $telegram);
     }
-    public function editContactVerify($tguser, Telegram $telegram){
+    public function editContactVerify($tguser, $telegram){
         if($tguser->text == $this->button3){
             return $this->menu1($tguser->chat_id, $telegram);
         }else{
@@ -137,7 +137,7 @@ class telegramController extends Controller
             return $this->sendRequestContact($tguser, $telegram);
         }
     }
-    public function sendRequestContact($tguser, Telegram $telegram){
+    public function sendRequestContact($tguser, $telegram){
         $button = [
             'keyboard' =>
             [
@@ -158,7 +158,7 @@ class telegramController extends Controller
         return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textagree, $button);
     }
 
-    public function sendmenubutton1($tguser, Telegram $telegram){
+    public function sendmenubutton1($tguser, $telegram){
         $a = $tguser->userfirst->chat_id;
         $b = "Сизга берилган чегирма раками:\n     " . $tguser->userfirst->discount_number;
         return $tguser->userfirst->active ? $telegram->sendmessage($a, $b) : $telegram->sendmessage($a, $this->notactive);
