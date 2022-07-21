@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ForBot;
+use App\Helpers\TgUser;
 use App\Models\BotToken;
 use App\Models\Question;
 use App\Helpers\Telegram;
@@ -43,54 +44,16 @@ class telegramController extends Controller
     protected $menu2button3 = 'Янгиликлар';
     protected $menubutton66 = "Бизнинг Манзил:\n\u{1F3E2} Андижон ш. Бобуршох кучаси 1-уй";
     protected $menubutton55 = "Биз билан богланиш:\n \u{1F64E}\u{200D}\u{2642}\u{FE0F}Админ: @smmuzb3737\n \u{1F4DE}Тел: +998938033737";
+    protected $notactive = "Чегирма учун ракамни колга киритиш учун руйхатдан утишингиз керак болади";
 
-    public function saveContact($contact, $token){
-        $number = $contact['phone_number'];
-        $first_name = 'Comp';
-        $last_name = 'Biznes';
-        $user_id = $contact['user_id'];
-        $user = TelegramUser::where('telegram_id', $user_id)->first();
-        if(!$user){
-            $user = new TelegramUser();
-            $user->number = strval($number);
-            $user->number2 = strval($number);
-            $user->first_name = $first_name;
-            $user->last_name = $last_name;
-            $user->telegram_id = $user_id;
-            $user->client_status_id = 1;
-            $user->discount_number = 1;
-            $user->save();
-            $user->discount_number = random_int(1000, 9999) . $user->id;
-            $user->save();
-            ForBot::firstOrCreate(['telegram_user_id' => $user->id, 'bot_token_id' => $token]);
-            return $user;
-        }else{
-            $user->number = strval($number);
-            $user->number2 = strval($number);
-            $user->first_name = $first_name;
-            $user->last_name = $last_name;
-            $user->telegram_id = $user_id;
-            $user->client_status_id = 1;
-            $user->save();
-            ForBot::firstOrCreate(['telegram_user_id' => $user->id, 'bot_token_id' => $token]);
-            return $user;
-        }
-        
-
-    }
-    public function menu1($telegram_id, $telegram, $token){
-        $button = 0;
-        if(TelegramUser::where('telegram_id', $telegram_id)->first()->active == 0){
-            $button = ['text' => $this->menubuttonreg];
-        }else{
-            $button = ['text' => $this->menubutton1];
-        ;}
+    public function menu1($tguser, Telegram $telegram){
+        $button = $tguser->userfirst->active ? $this->menubuttonreg : $this->menubutton1;
         $menu1 = [
             'keyboard' =>
                 [
                     [
                         
-                        $button
+                        ['text' => $button]
                         
                     ],
                     [
@@ -106,9 +69,9 @@ class telegramController extends Controller
                 ],
                 'resize_keyboard' => true,
         ];
-        return $telegram->sendButtons($telegram_id, $this->textveryficated, $menu1, $token);
+        return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textveryficated, $menu1);
     }
-    public function menu2($telegram_id, $telegram, $token){
+    public function menu2($tguser, Telegram $telegram){
         $menu2 = [
             'keyboard' =>
                 [
@@ -133,14 +96,13 @@ class telegramController extends Controller
                 'resize_keyboard' => true,
                 
         ];
-        return $telegram->sendButtons($telegram_id, $this->textagree, $menu2, $token);
+        return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textagree, $menu2);
     }
-    public function sendContactVerify($chat_id, $telegram, $token){
-            $user = TelegramUser::where('telegram_id', $chat_id)->first();
-            $text = $user->original_last_name . "\n". 
-                    $user->original_first_name . "\n".
-                    $user->number2 . "\n".
-                    BotToken::find($token)->bot_name . $this->vt2;
+    public function sendContactVerify($tguser, Telegram $telegram){
+            $text = $tguser->userfirst->original_last_name . "\n". 
+                    $tguser->userfirst->original_first_name . "\n".
+                    $tguser->userfirst->number2 . "\n".
+                    BotToken::find(1)->bot_name . $this->vt2;
             $button = [
                     'keyboard' =>
                     [
@@ -156,42 +118,26 @@ class telegramController extends Controller
                     'one_time_keyboard' => true,
                     'resize_keyboard' => true,
                 ];
-            return $telegram->sendButtons($chat_id, $text, $button, $token);
+            return $telegram->sendButtons($tguser->userfist->chat_id, $text, $button);
             //Log::debug($message);
 
     }
 
 
-    public function sendButtonsForContact($chat_id, $telegram, $replymessage = 1, $text = 1, $token){
-        $identfiedclient = TelegramUser::where('telegram_id', $chat_id)->first();
-
-        if($identfiedclient && $replymessage == 1 && $text == 1){
-            return $this->sendContactVerify($chat_id, $telegram, $token);
-        }
-        if($identfiedclient && $replymessage != 1 && $text != 1){
-            return $this->editContactVerify($chat_id, $telegram, $replymessage, $text, $token);
-        }
-        if(!$identfiedclient){
-            return $this->sendRequestContact($chat_id, $telegram, $token);
-        }
-
+    public function sendButtonsForContact($tguser, $telegram){
+        return $tguser->userfist->active ? $this->sendContactVerify($tguser, $telegram) : $this->sendRequestContact($tguser, $telegram);
     }
-    public function editContactVerify($chat_id, $telegram, $replymessage, $text, $token){
-        $yes = $this->button3;
-        $no = $this->button4;
-        $identfiedclient = TelegramUser::where('telegram_id', $chat_id)->first();
-        if($text == $yes){
-            return $this->menu1($chat_id, $telegram, $token);
-            
+    public function editContactVerify($tguser, Telegram $telegram){
+        if($tguser->text == $this->button3){
+            return $this->menu1($tguser->chat_id, $telegram);
+        }else{
+            $user = TelegramUser::find($tguser->userfirst->id);
+            $user->active = 0;
+            $user->save();
+            return $this->sendRequestContact($tguser, $telegram);
         }
-        if($text == $no){
-            $identfiedclient->active = 0;
-            $identfiedclient->save();
-            return $this->sendRequestContact($chat_id, $telegram, $token);
-        }
-
     }
-    public function sendRequestContact($chat_id, $telegram, $token){
+    public function sendRequestContact($tguser, Telegram $telegram){
         $button = [
             'keyboard' =>
             [
@@ -209,167 +155,101 @@ class telegramController extends Controller
             'one_time_keyboard' => true,
             'resize_keyboard' => true,
         ];
-            return $telegram->sendButtons($chat_id, $this->textagree, $button, $token);
+        return $telegram->sendButtons($tguser->userfirst->chat_id, $this->textagree, $button);
     }
 
-    public function sendmenubutton1($chat_id, $telegram, $token){
-        $user = TelegramUser::where('telegram_id', $chat_id)->first();
-        if($user->active == 0){
-            return $telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун руйхатдан утишингиз керак болади', $token);
-            //$telegram->sendmessage($chat_id, 'Чегирма учун ракамни колга киритиш учун ушбу хаволага утиб исм шарифингизни бизга юборинг:<br>https://smmuzb.uz/contact/updated/'. random_int(100, 999) . $user->id . random_int(100, 999));
-        }
-        if($user->active != 0){
-            return $telegram->sendmessage($chat_id, "Сизга берилган чегирма раками:\n     " . $user->discount_number, $token);
-        }
+    public function sendmenubutton1($tguser, Telegram $telegram){
+        $a = $tguser->userfirst->chat_id;
+        $b = "Сизга берилган чегирма раками:\n     " . $tguser->userfirst->discount_number;
+        return $tguser->userfirst->active ? $telegram->sendmessage($a, $b) : $telegram->sendmessage($a, $this->notactive);
     }
 
-    public function getmessage(Request $request, Telegram $telegram, $token = 1)
+    public function getmessage(Request $request, Telegram $telegram)
     {
         //Log::debug($request);
-
-        $contact = false;
-        $replymessage = false;
-        $text = false;
-        $chat_id = false;
-        $from_id = false;
-        $first_name = 'comp';
-        $last_name = 'biznes';
-        $username = 'mijoz';
-        $replymessage = false;
-        if(isset($request['message']['contact'])){
-            $contact = $request['message']['contact'];
+        $tguser = new TgUser($request);
+        if($tguser->contact){
+            return $this->menu1($tguser, $telegram);
         }
-        if(isset($request['message']['text'])){
-            $text = $request['message']['text'];
-        }
-        if(isset($request['message']['chat']['id'])){
-            $chat_id = $request['message']['chat']['id'];
-        }
-        if(isset($request['message']['from']['id'])){
-            $from_id = $request['message']['from']['id'];
-        }
-        if(isset($request['message']['from']['first_name'])){
-            $first_name = $request['message']['from']['first_name'];
-        }
-        if(isset($request['message']['from']['last_name'])){
-            $last_name = $request['message']['from']['last_name'];
-        }
-        if(isset($request['message']['from']['username'])){
-            $username = $request['message']['from']['username'];
-        }
-        if(isset($request['message']['reply_to_message']['message_id'])){
-            $replymessage = $request['message']['reply_to_message']['message_id'];
-        }
-        if($contact){
-            $user = $this->saveContact($contact, $token);
-            if($user){
-                return $this->menu1($user->telegram_id, $telegram, $token);
+        if(!$tguser->contact){
+            if($tguser->text == '/start'){
+                return $this->sendButtonsForContact($tguser, $telegram);
             }
-        }
-        if(!$contact){
-            if($text == '/start'){
-                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage = 1, $text = 1, $token);
+            if($tguser->text == $this->button3 || $tguser->text == $this->button4){
+                return $this->editContactVerify($tguser, $telegram);
             }
-            if($text == $this->button3 || $text == $this->button4){
-                return $this->sendButtonsForContact($chat_id, $telegram, $replymessage, $text, $token);
+            if($tguser->text == $this->button2){
+                return $this->menu2($tguser, $telegram);
             }
-            if($text == $this->button2){
-                return $this->menu2($chat_id, $telegram, $token);
+            if($tguser->text == $this->menubutton1){
+                return $this->sendmenubutton1($tguser, $telegram);
             }
-            if($text == $this->menubutton1){
-                return $this->sendmenubutton1($chat_id, $telegram, $token);
+            if($tguser->text == $this->menubutton5){
+                return $telegram->sendMessage($tguser->chat_id, $this->menubutton55);
             }
-            if($text == $this->menubutton5){
-                return $telegram->sendMessage($chat_id, $this->menubutton55, $token);
+            if($tguser->text == $this->menubutton6){
+                return $telegram->sendMessage($tguser->chat_id, $this->menubutton66);
             }
-            if($text == $this->menubutton6){
-                return $telegram->sendMessage($chat_id, $this->menubutton66, $token);
-            }
-            if ($text == $this->menubuttonreg) {
-                $user = TelegramUser::where('telegram_id', $chat_id)->first();
-                if ($user->active == 0) {
-                    $question = CallBackQuestion::firstOrCreate(['telegram_user_id' => $chat_id], ['question_id' => 1]);
+            if ($tguser->text == $this->menubuttonreg) {
+                if ($tguser->userfirst->active == 0) {
+                    $question = CallBackQuestion::firstOrCreate(['telegram_user_id' => $tguser->chat_id], ['question_id' => 1]);
                     $question->question_id = 1;
                     $question->save();
                     $message = Question::find(1)->question;
-                    return $telegram->sendMessageHtml($chat_id, $message, $token);
+                    return $telegram->sendMessageHtml($tguser->chat_id, $message);
                 }
-                if ($user->active == 1) {
-                    $mess = CallBackQuestion::where('telegram_user_id', $chat_id)->first();
+                if ($tguser->userfirst->active == 1) {
+                    $mess = CallBackQuestion::where('telegram_user_id', $tguser->chat_id)->first();
                     $mess->question_id = 1;
                     $mess->save();
+                    $user = TelegramUser::find($tguser->userfirst->id);
                     $user->active = 0;
                     $user->original_last_name = null;
                     $user->original_first_name = null;
                     $user->save();
                     $message = Question::find(1)->question;
-                    return $telegram->sendMessageHtml($chat_id, $message, $token);
+                    return $telegram->sendMessageHtml($tguser->chat_id, $message);
                 }
             }
-            $question_chat_id = CallBackQuestion::where('telegram_user_id', $chat_id)->first();
+            $question_chat_id = CallBackQuestion::where('telegram_user_id', $tguser->chat_id)->first();
         
             if($question_chat_id && $question_chat_id->question_id < 4){
                 $q = $question_chat_id->question_id;
-                $user = TelegramUser::where('telegram_id', $chat_id)->first();
+                $user = TelegramUser::where('telegram_id', $tguser->chat_id)->first();
                 if ($q == 1) {
-                    $user->original_first_name = $text;
+                    $user->original_first_name = $tguser->text;
                     $user->save();
                     $question_chat_id->question_id = 2;
                     $question_chat_id->save();
-                    $message = Question::find($question_chat_id->question_id)->question;
-                    return $telegram->sendMessageHtml($chat_id, $message, $token);
+                    $message = Question::find(2)->question;
+                    return $telegram->sendMessageHtml($tguser->chat_id, $message);
                 }
                 if($q == 2){
-                    $user->original_last_name = $text;
+                    $user->original_last_name = $tguser->text;
                     $user->save();
                     $question_chat_id->question_id = 3;
                     $question_chat_id->save();
-                    $message = Question::find($question_chat_id->question_id)->question;
-                    return $telegram->sendMessageHtml($chat_id, $message, $token);
+                    $message = Question::find(3)->question;
+                    return $telegram->sendMessageHtml($tguser->chat_id, $message);
                 }
                 if($q == 3){
-                    $user->number2 = $text;
+                    $user->number2 = $tguser->text;
                     $user->active = 1;
                     $user->save();
                     $question_chat_id->question_id = 4;
                     $question_chat_id->save();
                     $message = Question::find($question_chat_id->question_id)->question;
-                    $telegram->sendMessageHtml($chat_id, $message, $token);
-                    return $this->menu1($chat_id, $telegram, $token);
+                    $telegram->sendMessageHtml($tguser->chat_id, $message);
+                    return $this->menu1($tguser, $telegram);
                 }
             }
         }
-        
-        
-        
-        
-        //$chat_id = 34764210;
-        //$message = '+998914885559';
-        /*if($text == 'test'){
-            $chat_id = 34764210;
-            $text = 'test';
-            $button = [
-                    'keyboard' =>
-                    [
-                        [
-                            [
-                                'text' => 'Отправить свой контакт',
-                                'request_contact' => true,
-                            ]
-                        ]
-                    ],
-                    'one_time_keyboard' => true,
-                ];
-            return $telegram->sendButtons($chat_id, $text, $button);
-        }else{
-            
-        }*/
         //Log::debug($request['message']['text']);
     }
     public function sendmessage(Telegram $telegram)
         {
             $chat_id = 34764210;
-            $text = "\u{1F92D}Ошна ишладими?";
+            $text = "\u{1F92D}қўшна ишладими?";
             $button = [
                     'keyboard' =>
                     [
@@ -390,22 +270,21 @@ class telegramController extends Controller
                 ];
             $messag = $telegram->sendMessageHtml($chat_id, $text, 3);
             $sss = json_decode($messag, JSON_PRETTY_PRINT);
-            $telegram->sendMessageHtml($chat_id, $sss, 3);
             dd($sss);
             
     }
-    public function getmessage2(Request $request, Telegram $telegram, $token = 2){
-        return $this->getmessage($request, $telegram, $token);
+    /*public function getmessage2(Request $request, Telegram $telegram){
+        return $this->getmessage($request, $telegram);
     }
-    public function gettestmessage3(Request $request, Telegram $telegram, $token = 3){
+    public function gettestmessage3(Request $request, Telegram $telegram){
         Log::debug($request);
         $chat_id = 34764210;
-        $messag = $telegram->sendMessageHtml($chat_id, $request->all(), $token);
+        $messag = $telegram->sendMessageHtml($chat_id, $request->all());
         $sss = json_decode($messag, JSON_PRETTY_PRINT);
-        return $telegram->sendMessageHtml($chat_id, $sss, $token);
+        return $telegram->sendMessageHtml($chat_id, $sss);
 
 
-    }
+    }*/
     public function usersendcontact(Request $req, Telegram $telegram){
         $chat_id = 5384353797;
         $text = "SMMUZB.UZ Сайтидан навбатдаги мурожаат:
