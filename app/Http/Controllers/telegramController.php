@@ -118,14 +118,14 @@ class telegramController extends Controller
                     'one_time_keyboard' => true,
                     'resize_keyboard' => true,
                 ];
-            return $telegram->sendButtons($tguser->userfist->chat_id, $text, $button);
+            return $telegram->sendButtons($tguser->userfirst->chat_id, $text, $button);
             //Log::debug($message);
 
     }
 
 
     public function sendButtonsForContact($tguser, $telegram){
-        return $tguser->userfist->active ? $this->sendContactVerify($tguser, $telegram) : $this->sendRequestContact($tguser, $telegram);
+        return $tguser->userfirst->active ? $this->sendContactVerify($tguser, $telegram) : $this->sendRequestContact($tguser, $telegram);
     }
     public function editContactVerify($tguser, Telegram $telegram){
         if($tguser->text == $this->button3){
