@@ -41,7 +41,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/eloquent', [customerController::class, 'eloquent'])
-                ->name('eloquent');
+                ->name('eloquent'); //тест
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

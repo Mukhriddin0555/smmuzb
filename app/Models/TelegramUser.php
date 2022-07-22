@@ -36,7 +36,9 @@ class TelegramUser extends Model
 {
     use HasFactory;
 
+    public $with = 'saleproducts';
+
     public function saleproducts(){
-        return $this->hasMany(SaleProduct::class, 'telegram_user_id', 'id');
+        return $this->hasMany(SaleProduct::class, 'telegram_user_id', 'id')->orderByDesc('created_at');
     }
 }

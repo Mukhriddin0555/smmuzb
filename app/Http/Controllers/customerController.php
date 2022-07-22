@@ -11,6 +11,7 @@ use App\Models\TelegramUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\CallBackQuestion;
+use App\Models\CustomerSalesman;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -21,15 +22,19 @@ class customerController extends Controller
     }
     public function userfind(Request $request){
         $tguser = TelegramUser::where('discount_number', $request->discount)
-        ->with('saleproducts')
         ->first();
         
         if($tguser != null){
             $tgsum = SaleProduct::where('telegram_user_id', $tguser->id)
             ->where('customer_id', Auth::user()->customer_id )
             ->sum('price_amount');
-            return view('customer', ['user' => $tguser, 'sum' => $tgsum, 'customer' => Auth::user()->customer_id]);
-            //dd(is_bool($tguser->saleproducts));
+            $salesman = CustomerSalesman::where('customer_id', Auth::user()->customer_id)->get();
+            return view('customer', [
+                'user' => $tguser, 
+                'sum' => $tgsum, 
+                'customer' => Auth::user()->customer_id, 
+                'salesman' => $salesman]);
+            //dd($tguser);
         }
         //dd($tguser);
         return redirect()->route('customer')->with('danger', 'Харидор топилмади');
@@ -38,15 +43,13 @@ class customerController extends Controller
         $sale = new SaleProduct();
         $sale->telegram_user_id = $id;
         $sale->price_amount = $request->amount;
-        if(Auth::user()->customer_id == 2){
-            $sale->discount = 2;
-        }else{$sale->discount = 3;}
-        $sale->discount = 3;
+        $sale->discount = $request->discount;
         $sale->customer_id = Auth::user()->customer_id;
+        $sale->customer_salesman_id = $request->salesman_id;
         $sale->save();
-        $tguser = TelegramUser::where('id', $id)
-        ->with('saleproducts')
-        ->first();
+        $salesman = CustomerSalesman::find($request->salesman_id);
+        $salesman->sales = intval($this->saled($request));
+        $salesman->save();
         return back();
     }
     public function usersall(){
@@ -54,6 +57,11 @@ class customerController extends Controller
             $query->where('customer_id', '=', Auth::user()->customer_id);
         }], 'price_amount')->orderBy('saleproducts_sum_price_amount', 'desc')->get();
         return view('customer', ['allusers' => $users]);
+    }
+    public function saled($request){
+
+        $price = $request->amount - (($request->amount / 100) * $request->discount);
+        return $price / 100;
     }
     public function sailtoday(){
         

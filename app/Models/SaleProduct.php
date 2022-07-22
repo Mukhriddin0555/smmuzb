@@ -28,4 +28,10 @@ use Illuminate\Database\Eloquent\Model;
 class SaleProduct extends Model
 {
     use HasFactory;
+    
+    public $with = 'customersalesman';
+
+    public function customersalesman(){
+        return $this->hasOne(customersalesman::class, 'id', 'customer_salesman_id');
+    }
 }
