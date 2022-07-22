@@ -32,6 +32,6 @@ class SaleProduct extends Model
     public $with = 'customersalesman';
 
     public function customersalesman(){
-        return $this->hasOne(customersalesman::class, 'id', 'customer_salesman_id');
+        return $this->hasOne(CustomerSalesman::class, 'id', 'customer_salesman_id');
     }
 }
