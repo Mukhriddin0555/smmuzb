@@ -34,6 +34,9 @@ class customerController extends Controller
         return redirect()->route('customer')->with('danger', 'Харидор топилмади');
     }
     public function addsales($id, Request $request){
+        $request->validate([
+            'amount' => ['required'],
+            'discount' => ['required', 'max:2'],]);
         $sale = new SaleProduct();
         $sale->telegram_user_id = $id;
         $sale->price_amount = $request->amount;
