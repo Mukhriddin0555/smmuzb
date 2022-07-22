@@ -3,16 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Models\ForBot;
-use App\Models\BotToken;
-use App\Models\Products;
 use App\Models\SaleProduct;
 use App\Models\TelegramUser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use App\Models\CallBackQuestion;
-use App\Models\CustomerSalesman;
-use Illuminate\Support\Facades\DB;
+use App\Models\customersalesman;
 use Illuminate\Database\Eloquent\Builder;
 
 class customerController extends Controller
@@ -28,7 +22,7 @@ class customerController extends Controller
             $tgsum = SaleProduct::where('telegram_user_id', $tguser->id)
             ->where('customer_id', Auth::user()->customer_id )
             ->sum('price_amount');
-            $salesman = CustomerSalesman::where('customer_id', Auth::user()->customer_id)->get();
+            $salesman = customersalesman::where('customer_id', Auth::user()->customer_id)->get();
             return view('customer', [
                 'user' => $tguser, 
                 'sum' => $tgsum, 
@@ -47,7 +41,7 @@ class customerController extends Controller
         $sale->customer_id = Auth::user()->customer_id;
         $sale->customer_salesman_id = $request->salesman_id;
         $sale->save();
-        $salesman = CustomerSalesman::find($request->salesman_id);
+        $salesman = customersalesman::find($request->salesman_id);
         $salesman->sales = intval($this->saled($request));
         $salesman->save();
         return back();
