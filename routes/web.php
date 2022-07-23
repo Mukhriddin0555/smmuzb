@@ -67,6 +67,9 @@ Route::middleware(['cust','auth'])->group(function(){
     Route::get('/userfind', [customerController::class, 'userfind'])->name('userfind');
     Route::get('/usersall', [customerController::class, 'usersall'])->name('usersall');
     Route::get('/sailtoday', [customerController::class, 'sailtoday'])->name('sailtoday');
+    Route::get('/work', [customerController::class, 'salesman'])->name('salesman');
+    Route::get('/verifycation/{id}', [customerController::class, 'pass'])->name('pass');
+    Route::post('/verifycation', [customerController::class, 'passpost'])->name('passpost');
     Route::post('/usersfind/addsales/{id}',[customerController::class, 'addsales'])->name('addsales');    
     Route::get('/salessucsess/{id}',[customerController::class, 'salessucsess'])->name('salessucsess');
     Route::get('/salesdelete/{id}',[customerController::class, 'salesdelete'])->name('salesdelete');

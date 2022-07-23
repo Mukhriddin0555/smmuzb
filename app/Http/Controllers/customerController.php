@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class customerController extends Controller
 {
+    protected $password = 'smmsaidbek';
+
     public function customer(){
         return view('customer');
     }
@@ -60,8 +62,21 @@ class customerController extends Controller
         $price = $request->amount - (($request->amount / 100) * $request->discount);
         return $price / 100;
     }
-    public function sailtoday(){
-        
+    public function salesman(){
+        $sales = CustomerSalesman::where('customer_id', Auth::user()->customer_id)->get();
+        return view('customer', ['salesmans' => $sales]);
+    }
+    public function pass($id){
+        return view('customer', ['verify' => CustomerSalesman::find($id)]);
+    }
+    public function passpost(Request $request){
+        $sales = CustomerSalesman::find($request->sales_id);
+        if($request->password == $this->password){
+            $sales->sales = 0;
+            $sales->save();
+            return redirect()->route('salesman')->with('sucsessed', 'Муваффакиятли бажарилди');
+        }
+        return back()->with('badpassword', 'Махфий код нотогри киритилган');
     }
     public function eloquent(){
         /*$question_chat_id = CallBackQuestion::where('telegram_user_id', 1234)->first();

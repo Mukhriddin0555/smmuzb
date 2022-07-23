@@ -28,7 +28,18 @@
     <div class="py-12">
         <div class="">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                
+                @if (session('sucsessed'))
+                <div class="flex justify-center">
+                    <div class="w-1/2 font-black bg-green-400 rounded m-5 text-center">{{ session('sucsessed') }}
+                    </div>
+                </div>
+                @endif
+                @if (session('badpassword'))
+                <div class="flex justify-center">
+                    <div class="w-1/2 font-black bg-red-200 rounded m-5 text-center">{{ session('badpassword') }}
+                    </div>
+                </div>
+                @endif
                 @if (session('danger'))
                 <div class="flex justify-center">
                     <div class="w-1/2 font-black bg-red-200 rounded m-5 text-center">{{ session('danger') }}
@@ -40,6 +51,12 @@
                 @endif
                 @if (isset($allusers))
                 @include('layouts.allusers')
+                @endif
+                @if (isset($salesmans))
+                @include('layouts.salesmans')
+                @endif
+                @if (isset($verify))
+                @include('layouts.verify')
                 @endif
             </div>
         </div>
