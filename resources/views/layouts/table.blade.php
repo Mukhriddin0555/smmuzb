@@ -19,7 +19,7 @@
                     @endforeach
                 </select>
                     
-                <button class="pl-4 px-8 rounded bg-yellow-400  text-gray-800 font-bold p-3 border-yellow-500 border">Кушиш</button>
+                <button class="pl-4 px-8 rounded ml-4 bg-yellow-400  hover:bg-yellow-300 text-gray-800 font-bold p-3 border-yellow-500 border">Кушиш</button>
             </div>
             
           </form>

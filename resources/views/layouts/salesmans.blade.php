@@ -29,8 +29,8 @@
                 {{$sales->sales}} сумм
             </td>
             <td class="p-4 pr-7 ">
-                <span class="bg-green-400 rounded p-2">
-                <a href="{{route('pass', $sales->id )}}" class="text-inherit hover:text-black">Топшириш</a></span>
+                
+                <a href="{{route('pass', $sales->id )}}" class=""><p class="bg-green-400 rounded p-2 text-inherit hover:bg-green-300">Топшириш</p></a>
             </td>
         </tr>
         @endforeach

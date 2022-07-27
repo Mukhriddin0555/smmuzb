@@ -18,7 +18,7 @@
             <div class="header-content flex justify-center flex-row">
                 <form class="flex" action="{{ route('userfind')}}" method="get">
                     <input class="rounded mr-4 p-3 border text-gray-800 border-gray-200 bg-white" name="discount" placeholder="Discount_number"/>
-                    <button class="px-8 rounded bg-yellow-400  text-gray-800 font-bold p-3 border-yellow-500 border">Топиш</button>
+                    <button class="px-8 rounded bg-yellow-400  hover:bg-yellow-300 text-gray-800 font-bold p-3 border-yellow-500 border">Топиш</button>
                 </form>
             </div>
             @endif
