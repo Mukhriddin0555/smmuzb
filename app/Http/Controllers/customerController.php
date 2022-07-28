@@ -37,13 +37,10 @@ class customerController extends Controller
         return redirect()->route('customer')->with('danger', 'Харидор топилмади');
     }
     public function addsales($id, Request $request){
-        /*$request->validate([
+        $request->validate([
             'amount' => ['required'],
             'discount' => ['required', 'max:2'],
-            'salesman_id' => ['required'],]);*/
-        $validator = Validator::make($request->amount, $request->discount, $request->discount, $messages = [
-                'required' => 'The :attribute field is required.',
-            ]);
+            'salesman_id' => ['required'],]);
         $sale = new SaleProduct();
         $sale->telegram_user_id = $id;
         $sale->price_amount = $request->amount;

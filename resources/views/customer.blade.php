@@ -1,17 +1,35 @@
 <x-app-layout>
     <x-slot name="header">
-        @if ($errors->any())
-        @foreach ($errors->all() as $error)
+        @error('amount')
         <div class="flex justify-center"">
-          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex justify-center">
-            <strong class="font-bold">Хатолик: </strong>
-            <span class="block sm:inline">{{ $error }}</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            </span>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex justify-center">
+              <strong class="font-bold">Хатолик: </strong>
+              <span class="block sm:inline"> Савдо суммасини киритиш шарт!</span>
+              <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+              </span>
+            </div>
           </div>
-        </div>
-        @endforeach
-        @endif
+        @enderror
+        @error('discount')
+        <div class="flex justify-center"">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex justify-center">
+              <strong class="font-bold">Хатолик: </strong>
+              <span class="block sm:inline"> Чегирма фоизини киритиш шарт!</span>
+              <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+              </span>
+            </div>
+          </div>
+        @enderror
+        @error('salesman_id')
+        <div class="flex justify-center"">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex justify-center">
+              <strong class="font-bold">Хатолик:</strong>
+              <span class="block sm:inline">Сотувчини танлаш шарт!</span>
+              <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+              </span>
+            </div>
+          </div>
+        @enderror
         <h2 class="font-semibold text-xl text-gray-800 text-right leading-tight">
             {{ __('Сотувчи Кабинети') }} 
             @if (!isset($user) && !isset($verify))

@@ -10,10 +10,10 @@
             <div class="flex justify-center font-bold">Савдо хакида малумот кушиш</div>
             <br>
             <div class="flex justify-center m-3 ml-8 mb-6">
-                <input class="rounded-l-lg p-3 mr-1 border mr-0 text-gray-800 border-gray-200 bg-white" name="amount" type="number" placeholder="Савдо суммаси"/>
-                <input class="p-3 w-20 mr-1 border mr-0 text-gray-800 border-gray-200 bg-white" name="discount" type="number" placeholder="%"/>
-                <select class="rounded-r-lg mr-4 p-3 w-60 border mr-0 text-gray-800 border-gray-200 bg-white" name="salesman_id" id="1">
-                    <option></option>
+                <input class="rounded-l-lg p-3 mr-1 border mr-0 text-gray-800 border-gray-200 bg-white" name="amount" type="number" placeholder="Савдо суммаси" value="{{ old('amount') }}"/>
+                <input class="p-3 w-20 mr-1 border mr-0 text-gray-800 border-gray-200 bg-white" name="discount" type="number" placeholder="%" value="{{ old('discount') }}"/>
+                <select  class="rounded-r-lg mr-4 p-3 w-60 border mr-0 text-gray-800 border-gray-200 bg-white" name="salesman_id" id="1">
+                    <option value="">Сотувчини тангланг</option>
                     @foreach ($salesman as $man)
                     <option value="{{$man->id}}">{{$man->first_name}} {{$man->last_name}}</option>
                     @endforeach
@@ -80,7 +80,7 @@
                 <td></td>
                 <td class="p-4 pr-7">{{ $sum }}</td>
                 <td></td>
-                <td class="p-4 pr-7">{{ $discount }}</td>
+                <td class="p-4 pr-7">{{ intval($discount) }}</td>
                 <td class="p-4 pr-7 bg-sky-500 rounded">{{ intval($paid) }}</td>
             </tr>
             
