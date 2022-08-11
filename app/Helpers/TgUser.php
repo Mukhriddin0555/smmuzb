@@ -63,8 +63,8 @@ class TgUser {
     }
     public function newuser($usertg = null){
             $user = $usertg ?? new TelegramUser();
-            $user->number = $this->phone_number ? strval($this->phone_number) : strval($this->phone_number) . strval(mt_srand(10));
-            $user->number2 = $this->phone_number ? strval($this->phone_number) : strval($this->phone_number) . strval(mt_srand(10));
+            $user->number = $this->phone_number ? strval($this->phone_number) : strval(mt_srand(10));
+            $user->number2 = $this->phone_number ? strval($this->phone_number) : strval(mt_srand(10));
             $user->first_name = $this->first_name;
             $user->last_name = $this->last_name;
             $user->telegram_id = $this->user_id;
