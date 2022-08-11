@@ -49,7 +49,7 @@ class TgUser {
         $this->user_name = $messagefrom['username'] ?? 'net';
         $this->language_code = $messagefrom['language_code'] ?? false;
 
-        $this->phone_number = $this->contact['phone_number'] ?? 'yoq';
+        $this->phone_number = $this->contact['phone_number'] ?? false;
 
         $this->chat_id = $chat['id'] ?? false;
 
@@ -63,8 +63,8 @@ class TgUser {
     }
     public function newuser($usertg = null){
             $user = $usertg ?? new TelegramUser();
-            $user->number = strval($this->phone_number);
-            $user->number2 = strval($this->phone_number);
+            $user->number = $this->phone_number ? strval($this->phone_number) : strval($this->phone_number) . strval(mt_srand(10));
+            $user->number2 = $this->phone_number ? strval($this->phone_number) : strval($this->phone_number) . strval(mt_srand(10));
             $user->first_name = $this->first_name;
             $user->last_name = $this->last_name;
             $user->telegram_id = $this->user_id;
