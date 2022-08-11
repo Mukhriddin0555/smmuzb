@@ -37,11 +37,11 @@ class TgUser {
     {
         $message = $request['message'] ?? false;
         $messagefrom = $message['from'] ?? false;
-        $chat = $message['chat'];
+        $chat = $message['chat'] ?? false;
         $this->contact = $message['contact'] ?? false;
         $this->text = $message['text'] ?? false;
         
-        $this->message_id = $message['message_id'];
+        $this->message_id = $message['message_id']  ?? false;
 
         $this->user_id = $messagefrom['id'] ?? false;
         $this->first_name = $messagefrom['first_name'] ?? 'net';
@@ -57,8 +57,8 @@ class TgUser {
         $this->chattype = $chat['type'] ?? false;
 
         $this->userfirst = TelegramUser::where('telegram_id', $this->user_id)->first() ?? false;
-        if($this->userfirst == false){$this->userfirst = $this->newuser();}
-        if($this->contact){$this->userfirst = $this->newuser($this->userfirst);}
+        if($this->userfirst == false || $message == true){$this->userfirst = $this->newuser();}
+        if($this->contact || $message == true){$this->userfirst = $this->newuser($this->userfirst);}
 
     }
     public function newuser($usertg = null){
