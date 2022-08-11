@@ -57,8 +57,8 @@ class TgUser {
         $this->chattype = $chat['type'] ?? false;
 
         $this->userfirst = TelegramUser::where('telegram_id', $this->user_id)->first() ?? false;
-        if($this->userfirst == false || $message == true){$this->userfirst = $this->newuser();}
-        if($this->contact || $message == true){$this->userfirst = $this->newuser($this->userfirst);}
+        if($this->userfirst == false && $message){$this->userfirst = $this->newuser();}
+        if($this->contact && $message ){$this->userfirst = $this->newuser($this->userfirst);}
 
     }
     public function newuser($usertg = null){
